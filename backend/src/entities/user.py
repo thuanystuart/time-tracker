@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from src.entities.db import db
+from src.entities.utils import db
 from sqlalchemy_utils import EmailType, PasswordType, force_auto_coercion
 
 force_auto_coercion()

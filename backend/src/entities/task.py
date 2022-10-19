@@ -1,4 +1,4 @@
-from src.entities.db import db
+from src.entities.utils import db
 from datetime import datetime
 
 class Task(db.Model):

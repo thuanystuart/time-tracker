@@ -4,12 +4,13 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 
-from src.entities.db import db, migrate, login_manager
+from src.entities.utils import db, migrate, login_manager
+from src.serializers.utils import ma
 from src.entities.project import Project
 from src.entities.task import Task
 from src.entities.time_entry import TimeEntry
 
-from src.blueprints.login import login_page
+from src.blueprints.user import user_page
 
 load_dotenv()
 
@@ -31,11 +32,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 metadata = db.metadata
 metadata.reflect(bind=db.engine)
+ma.init_app(app)
 migrate.init_app(app, db)
 app.secret_key = os.getenv('SECRET_KEY')
 login_manager.init_app(app)
 
-app.register_blueprint(login_page)
+app.register_blueprint(user_page)
 
 @app.route('/')
 def index():
