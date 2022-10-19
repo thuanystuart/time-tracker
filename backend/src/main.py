@@ -5,6 +5,9 @@ from flask import Flask
 from flask_cors import CORS
 
 from src.entities.db import db, migrate
+from src.entities.project import Project
+from src.entities.task import Task
+from src.entities.time_entry import TimeEntry
 
 load_dotenv()
 
@@ -28,8 +31,8 @@ metadata = db.metadata
 metadata.reflect(bind=db.engine)
 migrate.init_app(app, db)
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 @app.route('/')
 def index():
