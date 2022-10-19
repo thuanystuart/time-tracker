@@ -4,10 +4,12 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 
-from src.entities.db import db, migrate
+from src.entities.db import db, migrate, login_manager
 from src.entities.project import Project
 from src.entities.task import Task
 from src.entities.time_entry import TimeEntry
+
+from src.blueprints.login import login_page
 
 load_dotenv()
 
@@ -30,9 +32,10 @@ db.init_app(app)
 metadata = db.metadata
 metadata.reflect(bind=db.engine)
 migrate.init_app(app, db)
+app.secret_key = os.getenv('SECRET_KEY')
+login_manager.init_app(app)
 
-# with app.app_context():
-#     db.create_all()
+app.register_blueprint(login_page)
 
 @app.route('/')
 def index():
