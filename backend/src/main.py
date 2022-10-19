@@ -11,6 +11,8 @@ from src.entities.task import Task
 from src.entities.time_entry import TimeEntry
 
 from src.blueprints.user import user_page
+from src.blueprints.task import task_page
+from src.blueprints.project import project_page
 
 load_dotenv()
 
@@ -38,6 +40,8 @@ app.secret_key = os.getenv('SECRET_KEY')
 login_manager.init_app(app)
 
 app.register_blueprint(user_page)
+app.register_blueprint(task_page)
+app.register_blueprint(project_page)
 
 @app.route('/')
 def index():
