@@ -1,14 +1,18 @@
 from src.serializers.utils import ma
 from src.entities.task import Task
-from marshmallow import fields
+from src.entities.project import Project
+from marshmallow import fields, post_load, pre_load, validates, ValidationError
 from src.serializers.project import ProjectSchema
 
-class TaskSchema(ma.SQLAlchemySchema):
+class TaskSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = Task
+      model = Task
+      load_instance = True
 
-    id = ma.auto_field()
-    description = ma.auto_field()
-    start_datetime = fields.DateTime()
-    end_datetime = fields.DateTime()
-    project = fields.Nested(ProjectSchema, only=["id", "name"], data_key="project_id")
+    project = fields.Nested(ProjectSchema, only=["id", "name"], data_key="project_id", dump_only=True)
+    project_id = fields.Integer(data_key="project_id", load_only=True)
+
+    @validates('project_id')
+    def validate_project(self, id, **kwargs):
+      if Project.query.get(id) is None:
+        raise ValidationError('Not a valid project id.')
