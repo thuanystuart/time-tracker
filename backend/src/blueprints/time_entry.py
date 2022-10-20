@@ -26,4 +26,4 @@ def update_time_entry():
 
 @time_entry_page.route('/time_entry', methods=['DELETE'])
 def delete_time_entry():
-    return request_manager.delete(request)
+  return request_manager.delete(request)

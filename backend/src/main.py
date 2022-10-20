@@ -47,7 +47,7 @@ app.register_blueprint(time_entry_page)
 
 @app.route('/')
 def index():
-    return 'Hello, Time tracker!'
+  return 'Hello, Time tracker!'
 
 if __name__ == '__main__':
-    app.run(threaded=True, host='0.0.0.0', port=5001, debug=True)
+  app.run(threaded=True, host='0.0.0.0', port=5001, debug=True)

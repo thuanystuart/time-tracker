@@ -13,16 +13,16 @@ request_manager = RequestManager(Project, ProjectSchema, 'project')
 
 @project_page.route('/project', methods=['GET'])
 def get_projects():
-    return request_manager.get()
+  return request_manager.get()
 
 @project_page.route('/project', methods=['POST'])
 def add_project():
-    return request_manager.add(request)
+  return request_manager.add(request)
 
 @project_page.route('/project', methods=['PUT'])
 def update_project():
-    return request_manager.update(request)
+  return request_manager.update(request)
 
 @project_page.route('/project', methods=['DELETE'])
 def delete_project():
-    return request_manager.delete(request)
+  return request_manager.delete(request)

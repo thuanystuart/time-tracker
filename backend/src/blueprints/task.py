@@ -26,4 +26,4 @@ def update_task():
 
 @task_page.route('/task', methods=['DELETE'])
 def delete_task():
-    return request_manager.delete(request)
+  return request_manager.delete(request)
