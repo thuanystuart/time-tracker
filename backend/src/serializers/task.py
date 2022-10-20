@@ -10,8 +10,9 @@ class TaskSchema(ma.SQLAlchemyAutoSchema):
     load_instance = True
 
   time_entries = fields.Nested('TimeEntrySchema', many=True, exclude=["task"], dump_only=True)
-  project = fields.Nested(ProjectSchema, only=["id", "name"], data_key="project_id", dump_only=True)
-  project_id = fields.Integer(data_key="project_id", load_only=True)
+  project = fields.Nested(ProjectSchema, only=["id", "name"], dump_only=True)
+  project_id = fields.Integer(load_only=True)
+  user_id = fields.Integer()
 
   @validates('project_id')
   def validate_project(self, id, **kwargs):

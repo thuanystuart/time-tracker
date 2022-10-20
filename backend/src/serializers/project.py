@@ -7,4 +7,5 @@ class ProjectSchema(ma.SQLAlchemyAutoSchema):
     model = Project
     load_instance = True
 
-  tasks = fields.Nested('TaskSchema', many=True, exclude=["project"], dump_only=True)
+  tasks = fields.Nested('TaskSchema', many=True, exclude=["project", "user_id"], dump_only=True)
+  user_id = fields.Integer()

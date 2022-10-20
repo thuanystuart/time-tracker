@@ -9,7 +9,7 @@ class TimeEntrySchema(ma.SQLAlchemyAutoSchema):
     model = TimeEntry
     load_instance = True
 
-  task = fields.Nested(TaskSchema, only=["id", "description"], data_key="task_id", dump_only=True)
+  task = fields.Nested(TaskSchema, only=["id", "description"], dump_only=True)
   task_id = fields.Integer(data_key="task_id", load_only=True)
 
   @validates('task_id')

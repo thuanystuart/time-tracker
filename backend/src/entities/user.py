@@ -18,21 +18,14 @@ class User(UserMixin, db.Model):
     deprecated=['md5_crypt']), nullable=False)
   first_name = db.Column(db.String(30), nullable=False)
   last_name = db.Column(db.String(30), nullable=False)
+  projects = db.relationship('Project', backref='user', lazy=True)
+  tasks = db.relationship('Task', backref='user', lazy=True)
 
   def set_password(self, password):
     self.password = password
 
   def check_password(self, password):
     return self.password == password
-
-  @property
-  def serialize(self):
-    return {
-      'id': self.id,
-      'email': self.email,
-      'first_name': self.first_name,
-      'last_name': self.last_name,
-    }
 
   def __repr__(self):
     return '<User {} {}>'.format(self.first_name, self.last_name)
