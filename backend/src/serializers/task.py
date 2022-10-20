@@ -9,6 +9,7 @@ class TaskSchema(ma.SQLAlchemyAutoSchema):
       model = Task
       load_instance = True
 
+    time_entries = fields.Nested('TimeEntrySchema', many=True, exclude=["task"], dump_only=True)
     project = fields.Nested(ProjectSchema, only=["id", "name"], data_key="project_id", dump_only=True)
     project_id = fields.Integer(data_key="project_id", load_only=True)
 
