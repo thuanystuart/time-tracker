@@ -2,7 +2,6 @@ from src.entities.utils import db
 from src.entities.task import Task
 from datetime import datetime
 from sqlalchemy import event
-from flask_login import current_user
 
 def current_datetime():
     return datetime.now()
@@ -17,7 +16,7 @@ class TimeEntry(db.Model):
 
   def __init__(self, **data):
     if 'task_id' not in data:
-      self.task = Task(**data, user_id=current_user.id)
+      self.task = Task(**data)
     super(TimeEntry, self).__init__(**data)
 
 @event.listens_for(TimeEntry.start_datetime, 'set')
