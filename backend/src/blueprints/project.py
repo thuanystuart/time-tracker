@@ -1,4 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify
+from flask_login import login_required
 from flask_cors import CORS
 
 from src.entities.utils import db
