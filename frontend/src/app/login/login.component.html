@@ -1,2 +1,15 @@
-<p>login works!</p>
-<button type="button" (click)="login()">Login</button>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <label for="email">E-mail: </label>
+  <input id="email" type="text" formControlName="email">
+  <p *ngIf="loginForm.controls.email?.invalid && (loginForm.controls.email.touched || loginForm.controls.email.dirty)">
+    This field is required.
+  </p>
+
+  <label for="password">Password: </label>
+  <input id="password" type="password" formControlName="password">
+  <p *ngIf="loginForm.controls.password?.invalid && (loginForm.controls.password.touched || loginForm.controls.password.dirty)">
+    This field is required.
+  </p>
+
+  <button type="submit" [disabled]="!loginForm.valid">Login</button>
+</form>
