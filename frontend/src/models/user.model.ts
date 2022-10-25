@@ -1,7 +1,7 @@
-import { Task } from "./task.model"
-import { Project } from "./project.model"
+import { Task } from './task.model'
+import { Project } from './project.model'
 
-export default interface User {
+export interface User {
   id?: number,
   email: string,
   first_name?: string,

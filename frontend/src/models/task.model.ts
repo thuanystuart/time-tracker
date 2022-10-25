@@ -1,4 +1,4 @@
-import { TimeEntry } from "./timeEntry.model"
+import { TimeEntry } from './timeEntry.model'
 
 export interface Task {
   id?: number,
