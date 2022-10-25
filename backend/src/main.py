@@ -28,6 +28,8 @@ app.app_context().push()
 
 cors = CORS(app, supports_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['SESSION_COOKIE_SECURE'] = 'True'
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
