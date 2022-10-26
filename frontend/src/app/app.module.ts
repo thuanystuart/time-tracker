@@ -10,6 +10,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatUIModule } from './mat-ui/mat-ui.module'
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,11 @@ import { MatUIModule } from './mat-ui/mat-ui.module'
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatUIModule
+    MatUIModule,
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

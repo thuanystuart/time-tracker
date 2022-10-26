@@ -1,15 +1,15 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
-  <label for="email">E-mail: </label>
-  <input id="email" type="text" formControlName="email">
-  <p *ngIf="loginForm.controls.email?.invalid && (loginForm.controls.email.touched || loginForm.controls.email.dirty)">
-    This field is required.
-  </p>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label for="email">E-mail: </mat-label>
+    <input matInput id="email" type="text" formControlName="email" [errorStateMatcher]="errorMatcher">
+    <mat-error *ngIf="loginForm.controls.email?.invalid">E-mail is <strong>required</strong></mat-error>
+  </mat-form-field>
 
-  <label for="password">Password: </label>
-  <input id="password" type="password" formControlName="password">
-  <p *ngIf="loginForm.controls.password?.invalid && (loginForm.controls.password.touched || loginForm.controls.password.dirty)">
-    This field is required.
-  </p>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label for="password">Password: </mat-label>
+    <input matInput id="password" type="password" formControlName="password" [errorStateMatcher]="errorMatcher">
+    <mat-error *ngIf="loginForm.controls.password?.invalid">Password is <strong>required</strong></mat-error>
+  </mat-form-field>
 
   <button mat-raised-button type="submit" [disabled]="!loginForm.valid">Login</button>
 </form>

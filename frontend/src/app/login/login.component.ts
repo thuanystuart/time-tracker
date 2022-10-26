@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,14 @@ import { FormBuilder } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private auth: AuthService, private fb: FormBuilder) { }
+  constructor(private router: Router, private auth: AuthService, private fb: FormBuilder, private em: ErrorStateMatcher) { }
 
   loginForm = this.fb.nonNullable.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   })
+
+  errorMatcher = this.em
 
   ngOnInit(): void {
   }
