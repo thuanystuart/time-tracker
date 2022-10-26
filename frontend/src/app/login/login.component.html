@@ -1,15 +1,23 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label for="email">E-mail: </mat-label>
-    <input matInput id="email" type="text" formControlName="email" [errorStateMatcher]="errorMatcher">
-    <mat-error *ngIf="loginForm.controls.email?.invalid">E-mail is <strong>required</strong></mat-error>
-  </mat-form-field>
+<mat-card>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-card-content>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label for="email">E-mail: </mat-label>
+        <input matInput id="email" type="text" formControlName="email" [errorStateMatcher]="errorMatcher">
+        <mat-error *ngIf="loginForm.controls.email?.invalid">E-mail is <strong>required</strong></mat-error>
+      </mat-form-field>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label for="password">Password: </mat-label>
-    <input matInput id="password" type="password" formControlName="password" [errorStateMatcher]="errorMatcher">
-    <mat-error *ngIf="loginForm.controls.password?.invalid">Password is <strong>required</strong></mat-error>
-  </mat-form-field>
-
-  <button mat-flat-button color="accent" type="submit" [disabled]="!loginForm.valid">Login</button>
-</form>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label for="password">Password: </mat-label>
+        <input matInput id="password" type="password" formControlName="password" [errorStateMatcher]="errorMatcher">
+        <mat-error *ngIf="loginForm.controls.password?.invalid">Password is <strong>required</strong></mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="accent" type="submit" [disabled]="!loginForm.valid">Login</button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate" [style.visibility]="loading ? 'visible' : 'hidden'"></mat-progress-bar>
+    </mat-card-footer>
+  </form>
+</mat-card>

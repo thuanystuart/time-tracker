@@ -1,0 +1,37 @@
+@use '@angular/material' as mat;
+@import '../../styles.scss';
+
+:host {
+  height: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  background-color: mat.get-color-from-palette($primary-palette, 600);;
+}
+
+.mat-input {
+  width: 100%;
+}
+
+$padding: 30px;
+.mat-card {
+  width: 30%;
+  overflow: hidden;
+  padding: $padding;
+
+  .mat-card-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+
+  .mat-card-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mat-card-footer {
+    margin: 0 (-$padding) (-$padding) (-$padding);
+  }
+}

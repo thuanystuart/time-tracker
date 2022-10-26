@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,16 +13,23 @@ import { ErrorStateMatcher } from '@angular/material/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private auth: AuthService, private fb: FormBuilder, private em: ErrorStateMatcher) { }
-
   loginForm = this.fb.nonNullable.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
   })
 
   errorMatcher = this.em
+  loading = false
+  loadingSubscription: Subscription
 
-  ngOnInit(): void {
+  constructor(private router: Router, private auth: AuthService, private fb: FormBuilder, private em: ErrorStateMatcher) {
+    this.loadingSubscription = this.auth.loading.subscribe(newValue => this.loading = newValue)
+  }
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.loadingSubscription.unsubscribe()
   }
 
   login = () => {

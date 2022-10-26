@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '../../models/user.model'
@@ -19,6 +19,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   isLoggedIn: boolean = false
+  loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   user: User | null = null
   redirectUrl: string | null = null;
   httpOptions = {
@@ -29,9 +30,11 @@ export class AuthService {
   }
 
   login(credential: Credential): Observable<User> {
+    this.loading.next(true)
     return this.http.post<User>('http://localhost:5000/login', credential, this.httpOptions)
     .pipe(
       tap(user => {
+        this.loading.next(false)
         this.user = user
         this.isLoggedIn = true
       }),
