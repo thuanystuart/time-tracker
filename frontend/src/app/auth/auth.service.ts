@@ -22,16 +22,10 @@ export class AuthService {
   loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   user: User | null = null
   redirectUrl: string | null = null;
-  httpOptions = {
-    headers: new HttpHeaders({
-      ContentType: 'application/json; charset=UTF-8',
-    }),
-    withCredentials: true,
-  }
 
   signUp(user: User): Observable<User> {
     this.loading.next(true)
-    return this.http.post<User>('http://localhost:5000/signup', user, this.httpOptions)
+    return this.http.post<User>('signup', user)
     .pipe(
       tap(() => {
         this.loading.next(false)
@@ -48,7 +42,7 @@ export class AuthService {
 
   login(credential: Credential): Observable<User> {
     this.loading.next(true)
-    return this.http.post<User>('http://localhost:5000/login', credential, this.httpOptions)
+    return this.http.post<User>('login', credential)
     .pipe(
       tap(user => {
         this.loading.next(false)
@@ -66,7 +60,7 @@ export class AuthService {
   }
 
   logout(): Observable<boolean> {
-    return this.http.post('http://localhost:5000/logout', null, this.httpOptions)
+    return this.http.post('logout', null)
     .pipe(
       tap(() => {
         this.user = null
