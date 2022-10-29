@@ -7,15 +7,19 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  background-color: mat.get-color-from-palette($primary-palette, 600);;
+  background-color: mat.get-color-from-palette($primary-palette, 600);
 }
 
 .mat-input {
   width: 100%;
 }
 
+.sign-up-link {
+  text-align: center;
+}
+
 $padding: 30px;
-.mat-card {
+.login-card {
   width: 30%;
   overflow: hidden;
   padding: $padding;
@@ -27,7 +31,10 @@ $padding: 30px;
   }
 
   .mat-card-actions {
+    margin-left: 0;
+    margin-right: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
   }
 

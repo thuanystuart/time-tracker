@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="login-card">
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <mat-card-content>
       <mat-form-field class="example-full-width" appearance="fill">
@@ -14,7 +14,8 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-flat-button color="accent" type="submit" [disabled]="!loginForm.valid">Login</button>
+      <button mat-flat-button color="accent" type="submit" [disabled]="!loginForm.valid">Sign in</button>
+      <a class="sign-up-link" routerLink="/create-account">Not a member yet? Register now!</a>
     </mat-card-actions>
     <mat-card-footer>
       <mat-progress-bar mode="indeterminate" [style.visibility]="loading ? 'visible' : 'hidden'"></mat-progress-bar>

@@ -11,13 +11,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatUIModule } from './mat-ui/mat-ui.module'
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomepageComponent,
-    PageNotFoundComponent
+    SignUpComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,50 @@
+
+@use '@angular/material' as mat;
+@import '../../styles/theme.scss';
+
+:host {
+  height: 100%;
+  display: flex;
+}
+
+.grafic-container {
+  flex-grow: 1;
+  background-color: mat.get-color-from-palette($primary-palette, 600);
+}
+
+.sign-up-container {
+  width: 35%;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.sign-up-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: column;
+
+  .mat-button {
+    width: 100%;
+  }
+
+  a {
+    text-align: center;
+  }
+}

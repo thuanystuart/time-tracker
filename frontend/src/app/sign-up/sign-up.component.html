@@ -1,0 +1,37 @@
+<div class="grafic-container">
+
+</div>
+<div class="sign-up-container">
+  <form class="sign-up-form" [formGroup]="signUpForm" (ngSubmit)="signUp()">
+    <div class="form-row">
+      <mat-form-field appearance="fill">
+        <mat-label for="email">First Name: </mat-label>
+        <input matInput id="first_name" type="text" formControlName="first_name" [errorStateMatcher]="errorMatcher">
+        <mat-error *ngIf="signUpForm.controls.first_name?.invalid">First name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label for="email">Last Name: </mat-label>
+        <input matInput id="last_name" type="text" formControlName="last_name" [errorStateMatcher]="errorMatcher">
+        <mat-error *ngIf="signUpForm.controls.last_name?.invalid">Last name is <strong>required</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label for="email">E-mail: </mat-label>
+      <input matInput id="email" type="text" formControlName="email" [errorStateMatcher]="errorMatcher">
+      <mat-error *ngIf="signUpForm.controls.email?.invalid">E-mail is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label for="password">Password: </mat-label>
+      <input matInput id="password" type="password" formControlName="password" [errorStateMatcher]="errorMatcher">
+      <mat-error *ngIf="signUpForm.controls.password?.invalid">Password is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <div class="actions-container">
+      <button mat-flat-button color="accent" type="submit" [disabled]="!signUpForm.valid">Create account</button>
+      <a routerLink="/create-account">Already a member? Log in now!</a>
+    </div>
+  </form>
+</div>
