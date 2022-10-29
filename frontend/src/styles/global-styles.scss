@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Remove colored background in chrome autofill fields */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #F5F5F5 inset !important;
+    box-shadow: 0 0 0 30px #F5F5F5 inset !important;
+}
