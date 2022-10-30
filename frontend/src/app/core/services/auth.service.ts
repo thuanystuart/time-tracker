@@ -3,7 +3,7 @@ import { HttpClient, HttpContext } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { User } from '../../models/user.model'
+import { User } from '../../entities/user.model'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LOGIN, LOGOUT, REQUEST_TYPE, SIGN_UP } from '../http-interceptors/request-types';
 

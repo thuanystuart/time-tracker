@@ -6,7 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { finalize, Observable } from 'rxjs';
-import { LoadingStateService } from './loading-state.service';
+import { LoadingStateService } from '../services/loading-state.service';
 import { requestTypes, REQUEST_TYPE } from './request-types';
 
 @Injectable()

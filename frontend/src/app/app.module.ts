@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomepageComponent } from './homepage/homepage.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatUIModule } from './mat-ui/mat-ui.module'
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { HttpConfigInterceptor } from './http-interceptors/http-config.interceptor';
-import { LoadingStateInterceptor } from './http-interceptors/loading-state.interceptor';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { CoreModule } from './core/core.module';
+import { PagesModule } from './pages/pages.module';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -24,17 +23,10 @@ import { LoadingStateInterceptor } from './http-interceptors/loading-state.inter
     PageNotFoundComponent,
   ],
   imports: [
-    BrowserModule,
+    CoreModule,
+    SharedComponentsModule,
+    PagesModule,
     AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatUIModule,
-  ],
-  providers: [
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingStateInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
