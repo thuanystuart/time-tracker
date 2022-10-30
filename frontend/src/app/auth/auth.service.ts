@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpContext } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '../../models/user.model'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LOGIN, LOGOUT, REQUEST_TYPE, SIGN_UP } from '../http-interceptors/request-types';
 
 interface Credential {
   email: string,
@@ -19,19 +20,15 @@ export class AuthService {
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
   isLoggedIn: boolean = false
-  loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   user: User | null = null
-  redirectUrl: string | null = null;
+  redirectUrl: string | null = null
 
   signUp(user: User): Observable<User> {
-    this.loading.next(true)
-    return this.http.post<User>('signup', user)
+    return this.http.post<User>('signup', user, {
+      context: new HttpContext().set(REQUEST_TYPE, SIGN_UP),
+    })
     .pipe(
-      tap(() => {
-        this.loading.next(false)
-      }),
       catchError(error => {
-        this.loading.next(false)
         if (error.error) {
           this.snackBar.open(error.error, undefined, { duration: 2000 })
         }
@@ -41,16 +38,15 @@ export class AuthService {
   }
 
   login(credential: Credential): Observable<User> {
-    this.loading.next(true)
-    return this.http.post<User>('login', credential)
+    return this.http.post<User>('login', credential, {
+      context: new HttpContext().set(REQUEST_TYPE, LOGIN),
+    })
     .pipe(
       tap(user => {
-        this.loading.next(false)
         this.user = user
         this.isLoggedIn = true
       }),
       catchError(error => {
-        this.loading.next(false)
         if (error.error) {
           this.snackBar.open(error.error, undefined, { duration: 2000 })
         }
@@ -60,7 +56,9 @@ export class AuthService {
   }
 
   logout(): Observable<boolean> {
-    return this.http.post('logout', null)
+    return this.http.post('logout', null, {
+      context: new HttpContext().set(REQUEST_TYPE, LOGOUT),
+    })
     .pipe(
       tap(() => {
         this.user = null
@@ -70,7 +68,6 @@ export class AuthService {
         return false
       }),
       catchError(error => {
-        this.loading.next(false)
         if (error.error) {
           this.snackBar.open(error.error, undefined, { duration: 2000 })
         }

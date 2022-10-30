@@ -4,7 +4,8 @@ import { AuthService } from '../auth/auth.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Subscription } from 'rxjs';
+import { LoadingStateService } from '../http-interceptors/loading-state.service';
+import { LOGIN } from '../http-interceptors/request-types';
 
 @Component({
   selector: 'app-login',
@@ -18,19 +19,17 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required],
   })
 
-  errorMatcher = this.em
-  loading = false
-  loadingSubscription: Subscription
+  readonly LOGIN = LOGIN
 
-  constructor(private router: Router, private auth: AuthService, private fb: FormBuilder, private em: ErrorStateMatcher) {
-    this.loadingSubscription = this.auth.loading.subscribe(newValue => this.loading = newValue)
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private fb: FormBuilder,
+    public em: ErrorStateMatcher,
+    public loading: LoadingStateService) {
   }
 
   ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.loadingSubscription.unsubscribe()
-  }
 
   login = () => {
     this.auth.login(this.loginForm.getRawValue()).subscribe(loggedIn => {

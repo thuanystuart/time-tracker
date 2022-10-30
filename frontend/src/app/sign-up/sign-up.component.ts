@@ -19,19 +19,9 @@ export class SignUpComponent implements OnInit {
     password: ['', Validators.required],
   })
 
-  errorMatcher = this.em
-  loading = false
-  loadingSubscription: Subscription
-
-  constructor(private router: Router, private fb: FormBuilder, private auth: AuthService, private em: ErrorStateMatcher) {
-    this.loadingSubscription = this.auth.loading.subscribe(newValue => this.loading = newValue)
-  }
+  constructor(private router: Router, private fb: FormBuilder, private auth: AuthService, public em: ErrorStateMatcher) { }
 
   ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.loadingSubscription.unsubscribe()
-  }
 
   signUp = () => {
     this.auth.signUp(this.signUpForm.getRawValue()).subscribe(() => {

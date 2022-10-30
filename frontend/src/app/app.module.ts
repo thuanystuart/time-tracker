@@ -13,6 +13,7 @@ import { MatUIModule } from './mat-ui/mat-ui.module'
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HttpConfigInterceptor } from './http-interceptors/http-config.interceptor';
+import { LoadingStateInterceptor } from './http-interceptors/loading-state.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpConfigInterceptor } from './http-interceptors/http-config.intercept
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingStateInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
