@@ -10,7 +10,7 @@ services:
       context: ./
       dockerfile: ./frontend/Dockerfile
     ports:
-      - "80:80"
+      - "${FRONTEND_PORT}:80"
     environment:
       - BACKEND_PORT=${BACKEND_PORT}
       - BACKEND_HOST=${BACKEND_HOST}
