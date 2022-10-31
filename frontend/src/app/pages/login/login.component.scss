@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import 'src/styles/theme.scss';
+@use 'src/styles/theme.scss' as theme;
 
 :host {
   height: 100%;
@@ -7,7 +7,7 @@
   align-content: center;
   justify-content: center;
   align-items: center;
-  background-color: mat.get-color-from-palette($primary-palette, 600);
+  background-color: mat.get-color-from-palette(theme.$primary-palette, 600);
 }
 
 .mat-input {
