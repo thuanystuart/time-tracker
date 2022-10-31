@@ -15,7 +15,7 @@ from src.blueprints.task import task_page
 from src.blueprints.project import project_page
 from src.blueprints.time_entry import time_entry_page
 
-load_dotenv()
+load_dotenv('../.env')
 
 POSTGRES_DB = os.getenv('POSTGRES_DB')
 POSTGRES_HOST = os.getenv('POSTGRES_HOST')
