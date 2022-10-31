@@ -1,5 +1,24 @@
 name: time-tracker-backend
 services:
+  backend:
+    container_name: backend
+    restart: always
+    depends_on:
+      - db
+    build:
+      context: ./
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    environment:
+      - FLASK_APP=src/main.py
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - SECRET_KEY=${SECRET_KEY}
+      - BACKEND_PORT=${BACKEND_PORT}
+    entrypoint: ./entrypoint.sh
+
   db:
     container_name: db
     image: postgres:latest
@@ -16,6 +35,7 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
+    restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
