@@ -3,6 +3,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@guards/*": ["src/app/core/guards/*"],
+      "@interceptors/*": ["src/app/core/http-interceptors/*"],
+      "@services/*": ["src/app/core/services/*"],
+      "@entities/*": ["src/app/entities/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@shared-components/*": ["src/app/shared-components/*"],
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

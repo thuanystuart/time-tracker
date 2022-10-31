@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { LoadingStateService } from '../../core/services/loading-state.service';
-import { LOGIN } from '../../core/http-interceptors/request-types';
+import { LoadingStateService } from '@services/loading-state.service';
+import { LOGIN } from '@interceptors/request-types';
 
 @Component({
   selector: 'app-login',

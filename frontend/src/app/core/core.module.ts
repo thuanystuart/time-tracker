@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 
-import { LoadingStateInterceptor } from './http-interceptors/loading-state.interceptor';
-import { HttpConfigInterceptor } from './http-interceptors/http-config.interceptor';
+import { LoadingStateInterceptor } from '@interceptors/loading-state.interceptor';
+import { HttpConfigInterceptor } from '@interceptors/http-config.interceptor';
 import { MatUIModule } from './mat-ui/mat-ui.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
