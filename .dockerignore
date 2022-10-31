@@ -1,0 +1,6 @@
+.git
+**/.vscode/*
+**/.vscode
+**/node_modules
+**/.gitignore
+**/env

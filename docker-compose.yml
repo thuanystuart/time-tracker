@@ -1,5 +1,20 @@
 name: time-tracker-backend
 services:
+  frontend:
+    container_name: frontend
+    restart: always
+    depends_on:
+      - backend
+    image: 'time-tracker-frontend-container'
+    build:
+      context: ./
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - BACKEND_PORT=${BACKEND_PORT}
+      - BACKEND_HOST=${BACKEND_HOST}
+
   backend:
     container_name: backend
     restart: always

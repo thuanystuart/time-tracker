@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:5000/',
+  baseUrl: `http://${process.env['BACKEND_HOST']}:${process.env['BACKEND_PORT']}/`,
 };
