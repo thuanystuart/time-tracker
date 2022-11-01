@@ -28,8 +28,6 @@ services:
     build:
       context: ./
       dockerfile: ./backend/Dockerfile
-    ports:
-      - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
       - FLASK_APP=src/main.py
       - POSTGRES_HOST=db
@@ -39,6 +37,22 @@ services:
       - SECRET_KEY=${SECRET_KEY}
       - BACKEND_PORT=${BACKEND_PORT}
     entrypoint: ./entrypoint.sh
+
+  proxy:
+    profiles:
+      - prod
+    image: nginx:alpine
+    container_name: proxy
+    restart: always
+    depends_on:
+      - backend
+    volumes:
+      - ./backend/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./backend/nginx.conf.template:/etc/nginx/templates/nginx.conf.template:ro
+    environment:
+      - BACKEND_PORT=${BACKEND_PORT}
+    ports:
+      - '${BACKEND_PORT}:80'
 
   db:
     container_name: db
