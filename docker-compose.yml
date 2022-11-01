@@ -2,6 +2,8 @@ name: time-tracker-backend
 services:
   frontend:
     container_name: frontend
+    profiles:
+      - prod
     restart: always
     depends_on:
       - backend
@@ -16,6 +18,8 @@ services:
       - BACKEND_HOST=${BACKEND_HOST}
 
   backend:
+    profiles:
+      - prod
     container_name: backend
     restart: always
     depends_on:
