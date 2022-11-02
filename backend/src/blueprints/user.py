@@ -16,7 +16,7 @@ def load_user(user_id):
 @user_page.route('/current_user', methods=['GET'])
 @login_required
 def get_current_user():
-  return {'user': current_user.serialize}
+  return {'user': UserSchema().dump(current_user)}
 
 @user_page.route('/login', methods=['GET', 'POST'])
 def login():
