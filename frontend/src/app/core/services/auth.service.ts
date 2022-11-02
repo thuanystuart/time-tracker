@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '@entities/user.model'
@@ -72,6 +72,28 @@ export class AuthService {
           this.snackBar.open(error.error, undefined, { duration: 2000 })
         }
         return throwError(() => new Error(error.message))
+      })
+    )
+  }
+
+  checkLogin(): Observable<boolean> {
+    return this.http.get<User>('current_user')
+    .pipe(
+      tap(user => {
+        this.user = user
+        this.isLoggedIn = true
+        return true
+      }),
+      map(() => {
+        return false
+      }),
+      catchError(error => {
+        this.isLoggedIn = false
+        if (error.status == 401) {
+          return of(false)
+        } else {
+          return throwError(() => new Error(error.message))
+        }
       })
     )
   }

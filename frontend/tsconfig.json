@@ -8,6 +8,7 @@
       "@interceptors/*": ["src/app/core/http-interceptors/*"],
       "@services/*": ["src/app/core/services/*"],
       "@entities/*": ["src/app/entities/*"],
+      "@initializers/*": ["src/app/core/initializers/*"],
       "@pages/*": ["src/app/pages/*"],
       "@shared-components/*": ["src/app/shared-components/*"],
     },
