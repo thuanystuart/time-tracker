@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, ObservableInput, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '@entities/user.model'
@@ -23,17 +23,30 @@ export class AuthService {
   user: User | null = null
   redirectUrl: string | null = null
 
+  handleError(error: any, showAlert: boolean = true): ObservableInput<any> {
+    let message = 'An unknown error occured.'
+    switch(error.status) {
+      case 0:
+        message = 'There was a problem connecting to the server.'
+        break
+      case 401:
+        message = 'User is not authorized.'
+        break
+      case 400:
+        if (typeof error.error == 'string') message = error.error
+        break
+      default:
+    }
+    if (showAlert) this.snackBar.open(message, undefined, { duration: 2000 })
+    return throwError(() => new Error(error.message))
+  }
+
   signUp(user: User): Observable<User> {
     return this.http.post<User>('signup', user, {
       context: new HttpContext().set(REQUEST_TYPE, SIGN_UP),
     })
     .pipe(
-      catchError(error => {
-        if (error.error) {
-          this.snackBar.open(error.error, undefined, { duration: 2000 })
-        }
-        return throwError(() => new Error(error.message))
-      })
+      catchError(error => { return this.handleError(error) })
     )
   }
 
@@ -46,12 +59,7 @@ export class AuthService {
         this.user = user
         this.isLoggedIn = true
       }),
-      catchError(error => {
-        if (error.error) {
-          this.snackBar.open(error.error, undefined, { duration: 2000 })
-        }
-        return throwError(() => new Error(error.message))
-      })
+      catchError(error => { return this.handleError(error) })
     )
   }
 
@@ -67,12 +75,7 @@ export class AuthService {
       map(() => {
         return false
       }),
-      catchError(error => {
-        if (error.error) {
-          this.snackBar.open(error.error, undefined, { duration: 2000 })
-        }
-        return throwError(() => new Error(error.message))
-      })
+      catchError(error => { return this.handleError(error) })
     )
   }
 
@@ -92,7 +95,7 @@ export class AuthService {
         if (error.status == 401) {
           return of(false)
         } else {
-          return throwError(() => new Error(error.message))
+          return this.handleError(error, false)
         }
       })
     )
