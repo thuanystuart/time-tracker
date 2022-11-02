@@ -34,9 +34,9 @@ def login():
       login_user(user, remember=remember)
       return {'user': UserSchema().dump(user)}
     else:
-      return make_response(jsonify("Wrong password. Try again!"), 401)
+      return make_response(jsonify("Wrong password. Try again!"), 400)
   else:
-    return make_response(jsonify("User is not registered!"), 401)
+    return make_response(jsonify("User is not registered!"), 400)
 
 
 @user_page.route('/logout', methods=['GET', 'POST'])
@@ -68,8 +68,8 @@ def signup():
     login_user(user)
     return {'user': UserSchema().dump(user)}
   else:
-    return make_response(jsonify("This email is already registered, user was not created!"), 401)
-  return make_response(jsonify("Something went wrong, user was not created!"), 401)
+    return make_response(jsonify("This email is already registered, user was not created!"), 400)
+  return make_response(jsonify("Something went wrong, user was not created!"), 400)
 
 @user_page.route('/user', methods=['DELETE'])
 @login_required
