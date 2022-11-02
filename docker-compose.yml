@@ -36,6 +36,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - SECRET_KEY=${SECRET_KEY}
       - BACKEND_PORT=${BACKEND_PORT}
+    command: 'chmod +x ./backend/entrypoint.sh'
     entrypoint: ./entrypoint.sh
 
   proxy:
