@@ -17,7 +17,7 @@
 
 # Set up
 
-Create a `.env` file to store the environment variables in the root folder and replace the empty variables with appropriate values.
+Create a `.env` file to store the environment variables in the root folder and **replace the empty variables with appropriate values**. Replace `FLASK_APP="src\\main.py"` by `FLASK_APP="src/main.py"` if you are using Linux or MacOS.
 
 ```py
 POSTGRES_PASSWORD=''
@@ -55,11 +55,12 @@ Run the command to create the docker container on the root folder:
 ```sh
 docker compose up -d
 ```
+Set up the flask location in an environment variable with `set FLASK_APP="src\\main.py"` (Windows OS), or `export FLASK_APP="src/main.py"` (MacOS or Linux).
+
 Activate the virtual environment to use the flask commands. Update the database schema by running:
 ```sh
 flask db upgrade
 ```
-Set up the flask location in an environment variable with `set FLASK_APP="src\\main.py"` (Windows OS), or `export FLASK_APP="src/main.py"` (MacOS).
 
 On the backend folder, run the flask application:
 ```sh
