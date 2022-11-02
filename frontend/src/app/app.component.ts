@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ApplicationInitStatus, APP_INITIALIZER, Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(@Inject(APP_INITIALIZER) public appInit: ApplicationInitStatus) { }
 }

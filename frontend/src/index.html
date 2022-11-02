@@ -11,6 +11,14 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="mat-typography">
-  <app-root></app-root>
+  <app-root>
+    <ng-container *ngIf="!(appInit.donePromise | async)">
+      <div class="loading-page">
+        <svg class="spinner-container" viewBox="0 0 100 100">
+          <circle class="spinner" cx="50%" cy="50%" r="45"></circle>
+        </svg>
+      </div>
+    </ng-container>
+  </app-root>
 </body>
 </html>
