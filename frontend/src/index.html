@@ -12,7 +12,7 @@
 </head>
 <body class="mat-typography">
   <app-root>
-    <ng-container *ngIf="!(appInit.donePromise | async)">
+    <ng-container *ngIf="(appInit.donePromise | async) === false">
       <div class="loading-page">
         <svg class="spinner-container" viewBox="0 0 100 100">
           <circle class="spinner" cx="50%" cy="50%" r="45"></circle>
