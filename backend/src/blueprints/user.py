@@ -16,7 +16,7 @@ def load_user(user_id):
 @user_page.route('/current_user', methods=['GET'])
 @login_required
 def get_current_user():
-  return {'user': UserSchema().dump(current_user)}
+  return UserSchema().dump(current_user)
 
 @user_page.route('/login', methods=['GET', 'POST'])
 def login():
@@ -32,7 +32,7 @@ def login():
   if user:
     if user.check_password(password):
       login_user(user, remember=remember)
-      return {'user': UserSchema().dump(user)}
+      return UserSchema().dump(user)
     else:
       return make_response(jsonify("Wrong password. Try again!"), 400)
   else:
@@ -66,7 +66,7 @@ def signup():
     db.session.commit()
 
     login_user(user)
-    return {'user': UserSchema().dump(user)}
+    return UserSchema().dump(user)
   else:
     return make_response(jsonify("This email is already registered, user was not created!"), 400)
   return make_response(jsonify("Something went wrong, user was not created!"), 400)
