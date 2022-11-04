@@ -14,7 +14,7 @@ services:
     ports:
       - "${FRONTEND_PORT}:80"
     environment:
-      - BACKEND_PORT=${BACKEND_PORT}
+      - FLASK_RUN_PORT=${FLASK_RUN_PORT}
       - BACKEND_HOST=${BACKEND_HOST}
 
   backend:
@@ -35,7 +35,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - SECRET_KEY=${SECRET_KEY}
-      - BACKEND_PORT=${BACKEND_PORT}
+      - BACKEND_PORT=${FLASK_RUN_PORT}
     command: 'chmod +x ./backend/entrypoint.sh'
     entrypoint: ./entrypoint.sh
 
@@ -51,9 +51,9 @@ services:
       - ./backend/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./backend/nginx.conf.template:/etc/nginx/templates/nginx.conf.template:ro
     environment:
-      - BACKEND_PORT=${BACKEND_PORT}
+      - BACKEND_PORT=${FLASK_RUN_PORT}
     ports:
-      - '${BACKEND_PORT}:80'
+      - '${FLASK_RUN_PORT}:80'
 
   db:
     container_name: db

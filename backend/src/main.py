@@ -52,4 +52,5 @@ def index():
   return 'Hello, Time tracker!'
 
 if __name__ == '__main__':
-  app.run(threaded=True, debug=True, host='0.0.0.0', port=5000)
+  FLASK_RUN_PORT = os.getenv('FLASK_RUN_PORT')
+  app.run(threaded=True, debug=True, host='0.0.0.0', port=FLASK_RUN_PORT)
