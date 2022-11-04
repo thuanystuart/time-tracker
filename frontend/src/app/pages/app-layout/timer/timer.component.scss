@@ -1,0 +1,40 @@
+@use '@angular/material' as mat;
+@use 'src/styles/theme' as theme;
+
+:host {
+  flex: 1 1 auto;
+  display: flex;
+  column-gap: 15px;
+  align-items: center;
+}
+
+:host ::ng-deep .task-input {
+  flex: 1 1 auto;
+  font-size: 18px;
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
+
+  .mat-form-field-infix {
+    border: 0;
+  }
+}
+
+.placeholder{
+  color: mat.get-color-from-palette(theme.$primary-palette, 200);
+  font-weight: 500;
+}
+
+.white-icon {
+  color: white;
+}
+

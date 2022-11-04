@@ -8,6 +8,7 @@ import { PageNotFoundComponent } from '@pages/page-not-found/page-not-found.comp
 import { SignUpComponent } from '@pages/sign-up/sign-up.component';
 import { CoreModule } from '../core/core.module';
 import { TopBarComponent } from './app-layout/top-bar/top-bar.component';
+import { TimerComponent } from './app-layout/timer/timer.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TopBarComponent } from './app-layout/top-bar/top-bar.component';
     HomepageComponent,
     PageNotFoundComponent,
     TopBarComponent,
+    TimerComponent,
   ],
   imports: [
     CoreModule,

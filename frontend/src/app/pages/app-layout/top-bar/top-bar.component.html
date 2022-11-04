@@ -1,11 +1,5 @@
 <mat-toolbar class="toolbar">
-  <mat-form-field class="task-input" floatLabel="never" class="task-input">
-    <input matInput>
-    <mat-placeholder class="placeholder">What are you working on?</mat-placeholder>
-  </mat-form-field>
-  <button mat-mini-fab color="accent">
-    <mat-icon class="white-icon">arrow_right</mat-icon>
-  </button>
+  <app-timer></app-timer>
   <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu">
     <mat-icon class="white-icon">person</mat-icon>
   </button>
