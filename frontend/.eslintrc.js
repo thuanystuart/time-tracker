@@ -6,6 +6,17 @@ module.exports = {
   overrides: [
     {
       "files": [
+        "*.js"
+      ],
+      parserOptions: {
+        "ecmaVersion": "latest"
+      },
+      env: {
+          "es6": true
+      }
+    },
+    {
+      "files": [
         "*.ts"
       ],
       parserOptions: {
