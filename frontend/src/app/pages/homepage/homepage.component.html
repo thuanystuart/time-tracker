@@ -1,1 +1,1 @@
-<button mat-flat-button type="button" (click)="logout()">Logout</button>
+<app-task-card *ngFor="let task of (taskService.tasks$ | async)" [task]="task"></app-task-card>

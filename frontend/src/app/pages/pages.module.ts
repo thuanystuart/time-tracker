@@ -9,6 +9,7 @@ import { SignUpComponent } from '@pages/sign-up/sign-up.component';
 import { CoreModule } from '../core/core.module';
 import { TopBarComponent } from './app-layout/top-bar/top-bar.component';
 import { TimerComponent } from './app-layout/timer/timer.component';
+import { TaskCardComponent } from './homepage/task-card/task-card.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { TimerComponent } from './app-layout/timer/timer.component';
     PageNotFoundComponent,
     TopBarComponent,
     TimerComponent,
+    TaskCardComponent,
   ],
   imports: [
     CoreModule,
