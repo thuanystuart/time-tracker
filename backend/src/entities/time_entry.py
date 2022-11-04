@@ -20,13 +20,13 @@ class TimeEntry(db.Model):
     super(TimeEntry, self).__init__(**data)
 
 @event.listens_for(TimeEntry.start_datetime, 'set')
-def update_task_start(time_entry, new_start):
+def update_task_start(time_entry, new_start, oldValue, initiator):
   task = time_entry.task
   if task.start_datetime is None or task.start_datetime > new_start:
     task.start_datetime = new_start
 
 @event.listens_for(TimeEntry.end_datetime, 'set')
-def update_task_end(time_entry, new_end):
+def update_task_end(time_entry, new_end, oldValue, initiator):
   task = time_entry.task
   if task.start_datetime is None or task.start_datetime < new_end:
     task.start_datetime = new_end
