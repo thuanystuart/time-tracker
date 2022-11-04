@@ -11,9 +11,9 @@
   </button>
 </mat-toolbar>
 <mat-menu #menu="matMenu" xPosition="before" class="user-menu">
-  <div class="user-container">
-    <span class='user-name'>{{(user?.first_name || '') + ' ' + (user?.last_name || '')}}</span>
-    <span class='user-email'>{{user?.email}}</span>
+  <div class="user-container" *ngIf="(authService.user$ | async) as user">
+    <span class='user-name'>{{user.first_name + ' ' + user.last_name}}</span>
+    <span class='user-email'>{{user.email}}</span>
   </div>
   <mat-divider></mat-divider>
   <button mat-menu-item (click)="logout()">
