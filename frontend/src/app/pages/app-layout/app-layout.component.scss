@@ -8,7 +8,7 @@
   height: Calc(100% - 64px);
   width: 100%;
 
-  ::ng-deep .ng-star-inserted {
+  ::ng-deep > .ng-star-inserted {
     height: 100%;
     width: 100%;
   }
