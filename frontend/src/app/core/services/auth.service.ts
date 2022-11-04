@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
-import { Observable, ObservableInput, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, ObservableInput, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '@entities/user.model'
@@ -20,7 +20,8 @@ export class AuthService {
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
   isLoggedIn: boolean = false
-  user: User | null = null
+  private userSource: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined)
+  user$: Observable<User | undefined> = this.userSource.asObservable()
   redirectUrl: string | null = null
 
   handleError(error: any, showAlert: boolean = true): ObservableInput<any> {
@@ -56,7 +57,7 @@ export class AuthService {
     })
     .pipe(
       tap(user => {
-        this.user = user
+        this.userSource.next(user)
         this.isLoggedIn = true
       }),
       catchError(error => { return this.handleError(error) })
@@ -69,7 +70,7 @@ export class AuthService {
     })
     .pipe(
       tap(() => {
-        this.user = null
+        this.userSource.next({} as User)
         this.isLoggedIn = false
       }),
       map(() => {
@@ -83,7 +84,7 @@ export class AuthService {
     return this.http.get<User>('current_user')
     .pipe(
       tap(user => {
-        this.user = user
+        this.userSource.next(user)
         this.isLoggedIn = true
         return true
       }),

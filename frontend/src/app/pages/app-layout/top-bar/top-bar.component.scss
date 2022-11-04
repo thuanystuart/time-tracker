@@ -1,0 +1,71 @@
+@use '@angular/material' as mat;
+@use 'src/styles/theme' as theme;
+
+:host ::ng-deep .task-input {
+  flex: 1 1 auto;
+  font-size: 18px;
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
+
+  .mat-form-field-infix {
+    border: 0;
+  }
+}
+
+::ng-deep .user-menu {
+  margin-top: 15px;
+  min-height: 0 !important;
+  width: 100% !important;
+
+  .mat-menu-content:not(:empty) {
+    padding: 0;
+  }
+}
+
+.placeholder{
+  color: mat.get-color-from-palette(theme.$primary-palette, 200);
+  font-weight: 500;
+}
+
+.toolbar {
+  display: flex;
+  column-gap: 15px;
+  z-index: 2;
+  position: relative;
+  @include mat.elevation(8, mat.get-color-from-palette(theme.$primary-palette, 200), 0.8);
+}
+
+.white-icon {
+  color: white;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 10px 36px;
+  color: mat.get-color-from-palette(theme.$primary-palette, 200);
+
+  .user-name {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .user-email {
+    margin-top: -5px;
+    font-weight: 300;
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,3 @@
+<app-top-bar
+  [user]="(authService.user$ | async) || undefined"></app-top-bar>
+<router-outlet></router-outlet>
