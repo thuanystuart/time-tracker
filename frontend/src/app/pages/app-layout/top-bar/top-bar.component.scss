@@ -12,10 +12,11 @@
 }
 
 .toolbar {
+  position: fixed;
+  top: 0;
   display: flex;
   column-gap: 30px;
-  z-index: 2;
-  position: relative;
+  z-index: 1001;
   @include mat.elevation(8, mat.get-color-from-palette(theme.$primary-palette, 200), 0.8);
 }
 

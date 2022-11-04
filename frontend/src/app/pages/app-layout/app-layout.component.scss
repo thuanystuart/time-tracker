@@ -5,8 +5,9 @@
 }
 
 :host .content {
-  height: Calc(100% - 64px);
+  margin-top: 64px;
   width: 100%;
+  overflow-y: auto;
 
   ::ng-deep > .ng-star-inserted {
     height: 100%;
