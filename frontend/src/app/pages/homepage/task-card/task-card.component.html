@@ -1,3 +1,6 @@
-<mat-card *ngIf="task">
-  <mat-card-header>{{task.description}}</mat-card-header>
+<mat-card *ngIf="task" class="task-card">
+  <span>{{task.description}}</span>
+  <button mat-icon-button color="warn" (click)="onDeleteTask()">
+    <mat-icon>delete</mat-icon>
+  </button>
 </mat-card>

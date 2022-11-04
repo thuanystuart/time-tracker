@@ -22,6 +22,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     request = request.clone({
       ...this.httpOptions,
+      responseType: request.method == 'DELETE' ? 'text' : 'json',
       url: environment.baseUrl + request.url
     })
     return next.handle(request)

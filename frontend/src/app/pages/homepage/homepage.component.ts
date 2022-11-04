@@ -10,4 +10,7 @@ export class HomepageComponent {
 
   constructor(public taskService : TaskService) { }
 
+  onDeleteTask(id : number) {
+    this.taskService.deleteTask(id).subscribe()
+  }
 }

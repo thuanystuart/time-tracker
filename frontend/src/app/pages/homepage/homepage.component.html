@@ -1,1 +1,5 @@
-<app-task-card *ngFor="let task of (taskService.tasks$ | async)" [task]="task"></app-task-card>
+<app-task-card
+  *ngFor="let task of (taskService.tasks$ | async)"
+  [task]="task"
+  (deleteTask)="onDeleteTask($event)"
+></app-task-card>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '@entities/task.model';
 
 @Component({
@@ -8,4 +8,9 @@ import { Task } from '@entities/task.model';
 })
 export class TaskCardComponent {
   @Input() task : Task | undefined
+  @Output() deleteTask = new EventEmitter<number>()
+
+  onDeleteTask() {
+    this.deleteTask.emit(this.task?.id)
+  }
 }
