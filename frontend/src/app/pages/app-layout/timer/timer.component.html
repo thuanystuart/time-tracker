@@ -1,8 +1,13 @@
 <mat-form-field class="task-input" floatLabel="never" class="task-input">
-  <input matInput>
-  <mat-placeholder class="placeholder">What are you working on?</mat-placeholder>
+  <input matInput [(ngModel)]="taskDescription" />
+  <mat-placeholder class="placeholder">
+    {{isTimerRunning ? '(No description)' : 'What are you working on?'}}
+  </mat-placeholder>
 </mat-form-field>
 <span>{{duration.toFormat("hh:mm:ss")}}</span>
-<button mat-mini-fab color="accent" (click)="startStopTimer()">
+<button mat-mini-fab [color]="isTimerRunning ? 'warn' : 'accent'" (click)="startStopTimer()">
   <mat-icon class="white-icon">{{isTimerRunning ? 'stop' : 'play_arrow'}}</mat-icon>
+</button>
+<button mat-mini-fab color="primary" (click)="resetTimer()" [disabled]="!isTimerRunning">
+  <mat-icon class="white-icon">delete</mat-icon>
 </button>

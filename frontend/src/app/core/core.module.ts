@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoadingStateInterceptor } from '@interceptors/loading-state.interceptor';
 import { HttpConfigInterceptor } from '@interceptors/http-config.interceptor';
 import { MatUIModule } from './mat-ui/mat-ui.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
@@ -19,6 +19,7 @@ import { initializeAppFactory } from '@initializers/app.initializer';
     CommonModule,
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatUIModule,
@@ -26,6 +27,7 @@ import { initializeAppFactory } from '@initializers/app.initializer';
   exports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     MatUIModule,
   ],
   providers: [

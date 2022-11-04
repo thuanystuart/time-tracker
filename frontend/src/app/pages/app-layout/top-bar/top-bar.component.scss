@@ -13,7 +13,7 @@
 
 .toolbar {
   display: flex;
-  column-gap: 15px;
+  column-gap: 30px;
   z-index: 2;
   position: relative;
   @include mat.elevation(8, mat.get-color-from-palette(theme.$primary-palette, 200), 0.8);
