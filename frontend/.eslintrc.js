@@ -1,52 +1,53 @@
-{
-  "root": true,
-  "ignorePatterns": [
+module.exports = {
+  root: true,
+  ignorePatterns: [
     "projects/**/*"
   ],
-  "overrides": [
+  overrides: [
     {
       "files": [
         "*.ts"
       ],
-      "parserOptions": {
-        "project": [
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: [
           "tsconfig.json"
         ],
-        "createDefaultProgram": true
+        createDefaultProgram: true
       },
-      "extends": [
+      extends: [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:@typescript-eslint/recommended"
       ],
-      "rules": {
+      rules: {
         "@angular-eslint/directive-selector": [
           "error",
           {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
+            type: "attribute",
+            prefix: "app",
+            style: "camelCase"
           }
         ],
         "@angular-eslint/component-selector": [
           "error",
           {
-            "type": "element",
-            "prefix": "app",
-            "style": "kebab-case"
+            type: "element",
+            prefix: "app",
+            style: "kebab-case"
           }
         ],
         "@angular-eslint/no-empty-lifecycle-method": "off"
       }
     },
     {
-      "files": [
+      files: [
         "*.html"
       ],
-      "extends": [
+      extends: [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      rules: {}
     }
   ]
 }
