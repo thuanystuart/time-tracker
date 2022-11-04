@@ -19,8 +19,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     withCredentials: true,
   }
 
-  constructor() {}
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     request = request.clone({
       ...this.httpOptions,

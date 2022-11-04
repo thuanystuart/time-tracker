@@ -19,12 +19,12 @@ export class AuthService {
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
-  isLoggedIn: boolean = false
+  isLoggedIn = false
   private userSource: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined)
   user$: Observable<User | undefined> = this.userSource.asObservable()
   redirectUrl: string | null = null
 
-  handleError(error: any, showAlert: boolean = true): ObservableInput<any> {
+  handleError(error: any, showAlert = true): ObservableInput<any> {
     let message = 'An unknown error occured.'
     switch(error.status) {
       case 0:
@@ -80,16 +80,12 @@ export class AuthService {
     )
   }
 
-  checkLogin(): Observable<boolean> {
+  checkLogin(): Observable<void> {
     return this.http.get<User>('current_user')
     .pipe(
       tap(user => {
         this.userSource.next(user)
         this.isLoggedIn = true
-        return true
-      }),
-      map(() => {
-        return false
       }),
       catchError(error => {
         this.isLoggedIn = false

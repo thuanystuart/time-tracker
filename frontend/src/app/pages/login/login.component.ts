@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { Validators } from '@angular/forms';
@@ -12,7 +12,7 @@ import { LOGIN } from '@interceptors/request-types';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   loginForm = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -28,8 +28,6 @@ export class LoginComponent implements OnInit {
     public em: ErrorStateMatcher,
     public loading: LoadingStateService) {
   }
-
-  ngOnInit(): void {}
 
   login = () => {
     this.auth.login(this.loginForm.getRawValue()).subscribe(loggedIn => {

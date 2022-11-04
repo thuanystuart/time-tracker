@@ -12,8 +12,6 @@ export class LoadingStateService {
   private isLoadingSource: BehaviorSubject<loadingType> = new BehaviorSubject<loadingType>({} as loadingType)
   isLoading$: Observable<loadingType> = this.isLoadingSource.asObservable()
 
-  constructor() { }
-
   setLoading(requestType: requestTypes) {
     const updatedLoading: loadingType = {...this.isLoadingSource.value, [requestType]: true}
     this.isLoadingSource.next(updatedLoading)
