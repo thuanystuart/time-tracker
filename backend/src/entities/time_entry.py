@@ -9,7 +9,7 @@ class TimeEntry(db.Model):
   __tablename__ = 'time_entry'
 
   id = db.Column(db.Integer, primary_key=True)
-  task_id = db.Column(db.Integer, db.ForeignKey("task.id"), nullable=False)
+  task_id = db.Column(db.Integer, db.ForeignKey("task.id", ondelete="CASCADE"), nullable=False)
   description = db.Column(db.String, nullable=False)
   start_datetime = db.Column(db.DateTime, default=current_datetime)
   end_datetime = db.Column(db.DateTime)

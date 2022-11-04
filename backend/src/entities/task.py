@@ -16,7 +16,7 @@ class Task(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
   project_id = db.Column(db.Integer, db.ForeignKey("project.id"))
 
-  time_entries = db.relationship('TimeEntry', backref='task', lazy=True)
+  time_entries = db.relationship('TimeEntry', backref='task', lazy=True, cascade="all, delete")
 
   def __init__(self, **data):
     super(Task, self).__init__(**data, user_id=current_user.id)
