@@ -1,6 +1,7 @@
 from src.entities.utils import db
 from datetime import datetime
 from flask_login import current_user
+from src.entities.time_entry import TimeEntry
 
 def current_datetime():
     return datetime.now()
@@ -16,8 +17,9 @@ class Task(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
   project_id = db.Column(db.Integer, db.ForeignKey("project.id"))
 
-  time_entries = db.relationship('TimeEntry', backref='task', lazy=True, cascade="all, delete")
+  time_entries = db.relationship(TimeEntry, backref='task', lazy=True, cascade="all, delete")
 
   def __init__(self, **data):
+    self.time_entries = [TimeEntry(**data)]
     super(Task, self).__init__(**data, user_id=current_user.id)
 
