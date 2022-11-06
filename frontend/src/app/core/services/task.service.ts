@@ -15,7 +15,7 @@ export class TaskService {
   }
 
   private tasksSource: BehaviorSubject<Map<number, Task>> = new BehaviorSubject<Map<number, Task>>(Map<number, Task>())
-  tasks$: Observable<Task[]> = this.tasksSource.asObservable().pipe(map(tasks => Array.from(tasks.values())))
+  tasks$: Observable<Task[]> = this.tasksSource.asObservable().pipe(map(tasks => Array.from(tasks.sort((a, b) => (a.end_datetime > b.end_datetime) ? -1 : ((a.end_datetime < b.end_datetime) ? 1 : 0)).values())))
 
   createTask(task: Task): Observable<Task> {
     return this.http.post<Task>('task', task)
