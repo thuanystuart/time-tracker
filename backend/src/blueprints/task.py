@@ -16,7 +16,7 @@ request_manager = RequestManager(Task, TaskSchema, 'task')
 @task_page.route('/task', methods=['GET'])
 @login_required
 def get_tasks():
-  return request_manager.get()
+  return request_manager.get(order_by=Task.end_datetime)
 
 @task_page.route('/task', methods=['POST'])
 @login_required

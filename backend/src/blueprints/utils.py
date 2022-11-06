@@ -3,6 +3,7 @@ from marshmallow import Schema
 from flask_sqlalchemy.model import DefaultMeta
 from flask import request, make_response
 from marshmallow import ValidationError
+from sqlalchemy import desc
 
 from src.entities.utils import db
 
@@ -12,8 +13,11 @@ class RequestManager:
     self.schema = schema()
     self.entity = entity
 
-  def get(self):
-    objects = self.entity.query.all()
+  def get(self, order_by=None):
+    if order_by is None:
+      objects = self.entity.query.all()
+    else:
+      objects = self.entity.query.order_by(desc(order_by)).all()
     return self.schema.dump(objects, many=True)
 
   def add(self, request):
