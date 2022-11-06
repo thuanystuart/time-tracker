@@ -12,14 +12,10 @@ export class TaskCardComponent implements OnInit {
   @Output() deleteTask = new EventEmitter<number>()
 
   duration = Duration.fromMillis(0)
-  start_datetime: DateTime = DateTime.now()
-  end_datetime: DateTime = DateTime.now()
 
   ngOnInit(): void {
-    if (this.task && this.task.start_datetime && this.task.end_datetime) {
-      this.end_datetime = DateTime.fromISO(this.task.end_datetime)
-      this.start_datetime = DateTime.fromISO(this.task.start_datetime)
-      this.duration = this.end_datetime.diff(this.start_datetime)
+    if (this.task) {
+      this.duration = (this.task.end_datetime).diff(this.task.start_datetime)
     }
   }
 

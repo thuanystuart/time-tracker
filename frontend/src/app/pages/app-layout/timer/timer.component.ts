@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { Duration, DateTime } from 'luxon';
-import { Task } from '@entities/task.model';
+import { buildEmptyTask } from '@entities/task.model';
 import { TaskService } from '@services/task.service';
 
 @Component({
@@ -17,12 +17,7 @@ export class TimerComponent implements OnDestroy {
     this.timerSubscription?.unsubscribe()
   }
 
-  task = {
-    description: '',
-    start_datetime: '',
-    end_datetime: '',
-  }
-  startTime = 0
+  task = buildEmptyTask()
   duration = Duration.fromMillis(0)
   timer = interval(1000)
   timerSubscription : Subscription | undefined
@@ -32,35 +27,24 @@ export class TimerComponent implements OnDestroy {
     if (!this.isTimerRunning) { this.startTimer() } else { this.endTimer() }
   }
 
-  private buildTask () : Task {
-    return {
-      ...this.task,
-      start_datetime: DateTime.fromMillis(this.startTime).toISO(),
-      end_datetime: DateTime.now().toISO(),
-    }
-  }
-
   private startTimer() {
-    this.startTime = Date.now()
     this.isTimerRunning = true
+    this.task.start_datetime = DateTime.now()
     this.timerSubscription = this.timer.subscribe(() => {
-      this.duration = Duration.fromMillis(Date.now() - this.startTime)
+      this.duration = DateTime.now().diff(this.task.start_datetime)
     })
   }
 
   private endTimer() {
-    this.taskService.createTask(this.buildTask()).subscribe(() => {
+    this.task.end_datetime = DateTime.now()
+    this.taskService.createTask(this.task).subscribe(() => {
       this.resetTimer()
     })
   }
 
   resetTimer() {
     this.duration = Duration.fromMillis(0)
-    this.task = {
-      description: '',
-      start_datetime: '',
-      end_datetime: '',
-    }
+    this.task = buildEmptyTask()
     this.isTimerRunning = false
     this.timerSubscription?.unsubscribe()
   }
