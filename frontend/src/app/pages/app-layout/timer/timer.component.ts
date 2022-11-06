@@ -17,7 +17,11 @@ export class TimerComponent implements OnDestroy {
     this.timerSubscription?.unsubscribe()
   }
 
-  taskDescription = ''
+  task = {
+    description: '',
+    start_datetime: '',
+    end_datetime: '',
+  }
   startTime = 0
   duration = Duration.fromMillis(0)
   timer = interval(1000)
@@ -30,7 +34,7 @@ export class TimerComponent implements OnDestroy {
 
   private buildTask () : Task {
     return {
-      description: this.taskDescription,
+      ...this.task,
       start_datetime: DateTime.fromMillis(this.startTime).toISO(),
       end_datetime: DateTime.now().toISO(),
     }
@@ -52,7 +56,11 @@ export class TimerComponent implements OnDestroy {
 
   resetTimer() {
     this.duration = Duration.fromMillis(0)
-    this.taskDescription = ""
+    this.task = {
+      description: '',
+      start_datetime: '',
+      end_datetime: '',
+    }
     this.isTimerRunning = false
     this.timerSubscription?.unsubscribe()
   }

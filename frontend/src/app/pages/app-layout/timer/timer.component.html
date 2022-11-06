@@ -1,5 +1,5 @@
 <mat-form-field class="task-input" floatLabel="never" class="task-input">
-  <input matInput [(ngModel)]="taskDescription" />
+  <input matInput [(ngModel)]="task.description" />
   <mat-placeholder class="placeholder">
     {{isTimerRunning ? '(No description)' : 'What are you working on?'}}
   </mat-placeholder>
