@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TimeEntry } from '@entities/timeEntry.model';
-import { Observable, catchError, throwError, ObservableInput } from 'rxjs';
+import { Observable, catchError, throwError, ObservableInput, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,9 @@ export class TimeEntryService {
   createTimeEntry(timeEntry: TimeEntry): Observable<TimeEntry> {
     return this.http.post<TimeEntry>('time_entry', timeEntry)
     .pipe(
+      tap(timeEntry => {
+        console.log(timeEntry)
+      }),
       catchError(error => { return this.handleError(error) })
     )
   }

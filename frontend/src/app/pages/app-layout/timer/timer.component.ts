@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { Duration, DateTime } from 'luxon';
-import { TimeEntryService } from '@services/time-entry.service';
-import { TimeEntry } from '@entities/timeEntry.model';
+import { Task } from '@entities/task.model';
+import { TaskService } from '@services/task.service';
 
 @Component({
   selector: 'app-timer',
@@ -11,7 +11,7 @@ import { TimeEntry } from '@entities/timeEntry.model';
 })
 export class TimerComponent implements OnDestroy {
 
-  constructor(private timeEntryService: TimeEntryService) { }
+  constructor(private taskService: TaskService) { }
 
   ngOnDestroy(): void {
     this.timerSubscription?.unsubscribe()
@@ -28,7 +28,7 @@ export class TimerComponent implements OnDestroy {
     if (!this.isTimerRunning) { this.startTimer() } else { this.endTimer() }
   }
 
-  private buildTimeEntry () : TimeEntry {
+  private buildTask () : Task {
     return {
       description: this.taskDescription,
       start_datetime: DateTime.fromMillis(this.startTime).toISO(),
@@ -45,7 +45,7 @@ export class TimerComponent implements OnDestroy {
   }
 
   private endTimer() {
-    this.timeEntryService.createTimeEntry(this.buildTimeEntry()).subscribe(() => {
+    this.taskService.createTask(this.buildTask()).subscribe(() => {
       this.resetTimer()
     })
   }

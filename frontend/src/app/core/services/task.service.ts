@@ -17,6 +17,16 @@ export class TaskService {
   private tasksSource: BehaviorSubject<Map<number, Task>> = new BehaviorSubject<Map<number, Task>>(Map<number, Task>())
   tasks$: Observable<Task[]> = this.tasksSource.asObservable().pipe(map(tasks => Array.from(tasks.values())))
 
+  createTask(task: Task): Observable<Task> {
+    return this.http.post<Task>('task', task)
+    .pipe(
+      tap(task => {
+        this.tasksSource.next(this.tasksSource.value.set(task.id || 0, task))
+      }),
+      catchError(error => { return this.handleError(error) })
+    )
+  }
+
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>('task')
     .pipe(

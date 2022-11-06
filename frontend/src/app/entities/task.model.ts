@@ -6,9 +6,9 @@ export interface Task {
   description: string,
   start_datetime: string,
   end_datetime: string,
-  project: {
+  project?: {
     id: number,
     name: string,
   },
-  time_entries: TimeEntry[]
+  time_entries?: TimeEntry[]
 }
