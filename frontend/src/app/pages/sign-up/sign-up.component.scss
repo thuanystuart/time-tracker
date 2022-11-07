@@ -1,5 +1,3 @@
-
-@use '@angular/material' as mat;
 @use 'src/styles/theme.scss' as theme;
 
 :host {
@@ -9,7 +7,7 @@
 
 .grafic-container {
   flex-grow: 1;
-  background-color: mat.get-color-from-palette(theme.$primary-palette, 600);
+  background-color: theme.$primary-dark;
 }
 
 .sign-up-container {

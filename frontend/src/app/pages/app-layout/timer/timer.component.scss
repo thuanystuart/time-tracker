@@ -1,4 +1,3 @@
-@use '@angular/material' as mat;
 @use 'src/styles/theme' as theme;
 
 :host {
@@ -30,7 +29,7 @@
 }
 
 .placeholder{
-  color: mat.get-color-from-palette(theme.$primary-palette, 200);
+  color: theme.$primary-light;
   font-weight: 500;
 }
 

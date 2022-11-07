@@ -31,3 +31,11 @@ $color-config:    mat.get-color-config($app-theme);
 $primary-palette: map.get($color-config, 'primary');
 $accent-palette:  map.get($color-config, 'accent');
 $warn-palette:    map.get($color-config, 'warn');
+
+$primary-color:   mat.get-color-from-palette($primary-palette, 500);
+$primary-light:   mat.get-color-from-palette($primary-palette, 200);
+$primary-dark:    mat.get-color-from-palette($primary-palette, 600);
+
+$accent-color:    mat.get-color-from-palette($accent-palette, 500);
+$accent-light:    mat.get-color-from-palette($accent-palette, 200);
+$accent-dark:     mat.get-color-from-palette($accent-palette, 600);

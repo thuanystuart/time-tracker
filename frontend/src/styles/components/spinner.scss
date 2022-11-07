@@ -1,5 +1,5 @@
 .loading-page {
-  background-color: mat.get-color-from-palette($primary-palette, 600);
+  background-color: $primary-dark;
   height: 100%;
   width: 100%;
   display: flex;
@@ -20,7 +20,7 @@
 .spinner {
   stroke-dasharray: 282.743px;
   fill: transparent;
-  stroke: mat.get-color-from-palette($accent-palette, 600);
+  stroke: $accent-dark;
   stroke-width: 10%;
   transform-origin: 50% 50%;
   animation-name: spin;

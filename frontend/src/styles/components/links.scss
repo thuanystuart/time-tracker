@@ -1,8 +1,8 @@
 a {
   font-size: 10px;
-  color: mat.get-color-from-palette($primary-palette, 600);
+  color: $primary-dark;
 }
 
 a:active {
-  color: mat.get-color-from-palette($accent-palette, 600);
+  color: $accent-dark;
 }

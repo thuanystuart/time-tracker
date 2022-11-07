@@ -1,7 +1,7 @@
 <mat-card *ngIf="task" class="task-card">
   <span class="task-description">{{task.description}}</span>
-  <span>{{task.start_datetime.toFormat('h:mm a')}} - {{task.end_datetime.toFormat('h:mm a')}}</span>
-  <span>{{duration.toFormat("hh:mm:ss")}}</span>
+  <span class="task-time">{{task.start_datetime.toFormat('h:mm a')}} - {{task.end_datetime.toFormat('h:mm a')}}</span>
+  <span class="task-duration">{{duration.toFormat("hh:mm:ss")}}</span>
   <button mat-icon-button color="accent">
     <mat-icon>play_arrow</mat-icon>
   </button>
