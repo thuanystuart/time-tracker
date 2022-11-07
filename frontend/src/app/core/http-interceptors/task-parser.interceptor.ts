@@ -9,6 +9,7 @@ import {
 import { map, Observable } from 'rxjs';
 import { DateTime } from 'luxon';
 import { RawTask, Task } from '@entities/task.model';
+import { RawTimeEntry, TimeEntry } from '@entities/timeEntry.model';
 
 @Injectable()
 export class TaskParserInterceptor implements HttpInterceptor {
@@ -37,12 +38,24 @@ export class TaskParserInterceptor implements HttpInterceptor {
     }
   }
 
+  private parseTimeEntry(rawTimeEntry: RawTimeEntry): TimeEntry {
+    return {
+      ...rawTimeEntry,
+      end_datetime: DateTime.fromISO(rawTimeEntry.end_datetime),
+      start_datetime: DateTime.fromISO(rawTimeEntry.start_datetime)
+    }
+  }
+
   private parseTask(rawTask: RawTask): Task {
-    const task = {
+    const time_entries = rawTask.time_entries?.map((time_entry) => this.parseTimeEntry(time_entry))
+
+    const task : Task = {
       ...rawTask,
       end_datetime: DateTime.fromISO(rawTask.end_datetime),
-      start_datetime: DateTime.fromISO(rawTask.start_datetime)
+      start_datetime: DateTime.fromISO(rawTask.start_datetime),
+      time_entries: time_entries,
     }
+
     return task
   }
 }

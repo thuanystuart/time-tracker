@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { TimeEntry } from './timeEntry.model';
+import { RawTimeEntry, TimeEntry } from './timeEntry.model';
 
 export interface RawTask {
   id?: number,
@@ -11,7 +11,7 @@ export interface RawTask {
     id: number,
     name: string,
   },
-  time_entries?: TimeEntry[]
+  time_entries?: RawTimeEntry[]
 }
 
 export interface Task {
