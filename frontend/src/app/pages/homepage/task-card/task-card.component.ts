@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '@entities/task.model';
 import { TimeEntry } from '@entities/timeEntry.model';
-import { DateTime, Duration } from 'luxon';
+import { Duration } from 'luxon';
 
 @Component({
   selector: 'app-task-card',
@@ -10,7 +10,11 @@ import { DateTime, Duration } from 'luxon';
 })
 export class TaskCardComponent implements OnInit {
   @Input() task : Task | TimeEntry | undefined
+  @Input() isTask = true
+  @Input() isExpanded = false
   @Output() delete = new EventEmitter<number>()
+  @Output() restart = new EventEmitter<Task>()
+  @Output() togglePanel = new EventEmitter<void>()
 
   duration = Duration.fromMillis(0)
 
@@ -20,7 +24,19 @@ export class TaskCardComponent implements OnInit {
     }
   }
 
+  hasChildren(): boolean {
+    return (this.isTask && ((this.task as Task).time_entries?.length || 0) > 1) || false
+  }
+
   onDelete() {
     this.delete.emit(this.task?.id)
+  }
+
+  onStart() {
+    this.task && this.restart.emit(this.task);
+  }
+
+  onTogglePanel() {
+    this.togglePanel.emit();
   }
 }

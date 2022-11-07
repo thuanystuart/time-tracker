@@ -1,51 +1,46 @@
-import { Component, OnDestroy } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
-import { Duration, DateTime } from 'luxon';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { buildEmptyTask } from '@entities/task.model';
-import { TaskService } from '@services/task.service';
+import { TimerService } from '@services/timer.service';
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
-export class TimerComponent implements OnDestroy {
-
-  constructor(private taskService: TaskService) { }
-
-  ngOnDestroy(): void {
-    this.timerSubscription?.unsubscribe()
-  }
+export class TimerComponent implements OnInit, OnDestroy {
 
   task = buildEmptyTask()
-  duration = Duration.fromMillis(0)
-  timer = interval(1000)
-  timerSubscription : Subscription | undefined
   isTimerRunning = false
 
-  startStopTimer() {
+  timerRunningSubscription: Subscription | undefined
+  taskSubscription: Subscription | undefined
+
+  constructor(public timerService: TimerService) { }
+
+  ngOnInit(): void {
+    this.timerRunningSubscription = this.timerService.isTimerRunning$.subscribe(value => this.isTimerRunning = value)
+    this.taskSubscription = this.timerService.currentTask$.subscribe(value => this.task = value)
+  }
+
+  ngOnDestroy(): void {
+    this.timerRunningSubscription?.unsubscribe()
+    this.taskSubscription?.unsubscribe()
+  }
+
+  onChangeTaskDescription(newValue: string) {
+    this.timerService.updateCurrentTask({ ...this.task, description: newValue})
+  }
+
+  onStartStopTimer() {
     if (!this.isTimerRunning) { this.startTimer() } else { this.endTimer() }
   }
 
   private startTimer() {
-    this.isTimerRunning = true
-    this.task.start_datetime = DateTime.now()
-    this.timerSubscription = this.timer.subscribe(() => {
-      this.duration = DateTime.now().diff(this.task.start_datetime)
-    })
+    this.timerService.startTimer()
   }
 
   private endTimer() {
-    this.task.end_datetime = DateTime.now()
-    this.taskService.createTask(this.task).subscribe(() => {
-      this.resetTimer()
-    })
-  }
-
-  resetTimer() {
-    this.duration = Duration.fromMillis(0)
-    this.task = buildEmptyTask()
-    this.isTimerRunning = false
-    this.timerSubscription?.unsubscribe()
+    this.timerService.endTimer()
   }
 }

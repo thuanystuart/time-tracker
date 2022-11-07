@@ -6,10 +6,15 @@
   align-items: center;
   column-gap: 15px;
   height: 48px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+:host:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .task-description {
-  padding-left: 15px;
   flex: 1;
   text-overflow: ellipsis;
   color: theme.$primary-color;

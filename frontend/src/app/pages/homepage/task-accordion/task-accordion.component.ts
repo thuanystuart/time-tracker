@@ -11,6 +11,8 @@ export class TaskAccordionComponent {
   @Input() task : Task | undefined
   @Output() deleteTask = new EventEmitter<number>()
   @Output() deleteTimeEntry = new EventEmitter<number>()
+  @Output() restartTask = new EventEmitter<Task>()
+  isPanelOpen = false
 
   onDeleteTask(id : number) {
     this.deleteTask.emit(id)
@@ -18,5 +20,13 @@ export class TaskAccordionComponent {
 
   onDeleteTimeEntry(id : number) {
     this.deleteTimeEntry.emit(id)
+  }
+
+  onRestart(task: Task) {
+    this.restartTask.emit(task)
+  }
+
+  onTogglePanelOpen() {
+    this.isPanelOpen = !this.isPanelOpen
   }
 }

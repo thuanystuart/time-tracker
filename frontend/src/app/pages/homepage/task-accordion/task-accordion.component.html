@@ -1,11 +1,24 @@
-<mat-expansion-panel hideToggle *ngIf="task" [disabled]="!task.time_entries || task.time_entries.length === 0" class="expansion-panel">
+<mat-expansion-panel
+  *ngIf="task"
+  hideToggle
+  [disabled]="!task.time_entries || task.time_entries.length === 0"
+  class="expansion-panel"
+  [expanded]="isPanelOpen"
+  [disabled]="true"
+>
   <mat-expansion-panel-header class="task-card">
-    <app-task-card [task]="task" (delete)="onDeleteTask($event)"></app-task-card>
+    <app-task-card
+      [isExpanded]="isPanelOpen"
+      [task]="task"
+      (delete)="onDeleteTask($event)"
+      (restart)="onRestart($event)"
+      (togglePanel)="onTogglePanelOpen()"
+    ></app-task-card>
   </mat-expansion-panel-header>
   <div *ngFor="let time_entry of task.time_entries">
     <app-task-card
-      class="time-entry-card"
-      [task]="task"
+      [isTask]="false"
+      [task]="time_entry"
       (delete)="onDeleteTimeEntry($event)"
     ></app-task-card>
     <mat-divider></mat-divider>

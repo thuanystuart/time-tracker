@@ -10,12 +10,6 @@
   }
 }
 
-:host ::ng-deep .task-card {
+.task-card {
   padding: 0;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.time-entry-card:hover {
-  background: rgba(0, 0, 0, 0.04);
 }
