@@ -26,6 +26,11 @@ export class TaskService {
     )),
   )
 
+  getTaskById(id: number): Task | undefined {
+    const tasks = this.tasksSource.value
+    return tasks.has(id) ?  tasks.get(id) : undefined
+  }
+
   createTask(task: Task): Observable<Task> {
     return this.http.post<Task>('task', task)
     .pipe(
