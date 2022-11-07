@@ -1,6 +1,20 @@
+@use 'src/styles/theme.scss' as theme;
+
 :host {
   display: flex;
   flex-direction: column;
   row-gap: 30px;
   padding: 48px 30px;
+}
+
+.date-header {
+  font-weight: 500;
+  color: theme.$primary-light;
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+::ng-deep .tasks-container div:last-child .mat-divider {
+  display: none;
 }

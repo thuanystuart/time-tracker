@@ -1,4 +1,18 @@
+import { DateTime } from "luxon"
+
 export interface TimeEntry {
+  id?: number,
+  task_id?: number,
+  description: string,
+  start_datetime: DateTime,
+  end_datetime: DateTime,
+  task?: {
+    id: number,
+    description: string,
+  }
+}
+
+export interface RawTimeEntry {
   id?: number,
   task_id?: number,
   description: string,

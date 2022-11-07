@@ -1,18 +1,24 @@
-.task-card {
-  padding: 10px;
+@use 'src/styles/theme' as theme;
+
+:host {
   display: flex;
+  width: 100%;
   align-items: center;
   column-gap: 15px;
+  height: 48px;
+}
 
-  .task-description {
-    flex: 1;
-  }
+.task-description {
+  padding-left: 15px;
+  flex: 1;
+  text-overflow: ellipsis;
+  color: theme.$primary-color;
+}
 
-  .task-time {
+.task-time {
+  color: theme.$primary-light;
+}
 
-  }
-
-  .task-duration {
-
-  }
+.task-duration {
+  color: theme.$primary-color;
 }

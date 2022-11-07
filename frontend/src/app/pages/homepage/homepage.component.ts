@@ -13,4 +13,8 @@ export class HomepageComponent {
   onDeleteTask(id : number) {
     this.taskService.deleteTask(id).subscribe()
   }
+
+  onDeleteTimeEntry(id : number) {
+    // this.taskService.deleteTask(id).subscribe()
+  }
 }

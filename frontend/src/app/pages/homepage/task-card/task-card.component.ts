@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '@entities/task.model';
+import { TimeEntry } from '@entities/timeEntry.model';
 import { DateTime, Duration } from 'luxon';
 
 @Component({
@@ -8,8 +9,8 @@ import { DateTime, Duration } from 'luxon';
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent implements OnInit {
-  @Input() task : Task | undefined
-  @Output() deleteTask = new EventEmitter<number>()
+  @Input() task : Task | TimeEntry | undefined
+  @Output() delete = new EventEmitter<number>()
 
   duration = Duration.fromMillis(0)
 
@@ -19,7 +20,7 @@ export class TaskCardComponent implements OnInit {
     }
   }
 
-  onDeleteTask() {
-    this.deleteTask.emit(this.task?.id)
+  onDelete() {
+    this.delete.emit(this.task?.id)
   }
 }

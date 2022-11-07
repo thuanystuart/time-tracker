@@ -10,6 +10,7 @@ import { CoreModule } from '../core/core.module';
 import { TopBarComponent } from './app-layout/top-bar/top-bar.component';
 import { TimerComponent } from './app-layout/timer/timer.component';
 import { TaskCardComponent } from './homepage/task-card/task-card.component';
+import { TaskAccordionComponent } from './homepage/task-accordion/task-accordion.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { TaskCardComponent } from './homepage/task-card/task-card.component';
     TopBarComponent,
     TimerComponent,
     TaskCardComponent,
+    TaskAccordionComponent,
   ],
   imports: [
     CoreModule,

@@ -1,0 +1,21 @@
+:host ::ng-deep .expansion-panel {
+  box-shadow: none;
+
+  .mat-content {
+    margin-right: 0;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 0 16px;
+  }
+}
+
+:host ::ng-deep .task-card {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.time-entry-card:hover {
+  background: rgba(0, 0, 0, 0.04);
+}

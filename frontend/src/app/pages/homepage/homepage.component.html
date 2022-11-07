@@ -1,5 +1,14 @@
-<app-task-card
-  *ngFor="let task of (taskService.tasks$ | async)"
-  [task]="task"
-  (deleteTask)="onDeleteTask($event)"
-></app-task-card>
+
+<mat-card *ngFor="let tasks of (taskService.tasks$ | async)">
+  <span class="date-header">{{tasks[0].toFormat('EEE, dd LLL')}}</span>
+  <div class="tasks-container">
+    <div *ngFor="let task of tasks[1]">
+      <app-task-accordion
+        [task]="task"
+        (deleteTask)="onDeleteTask($event)"
+        (deleteTimeEntry)="onDeleteTimeEntry($event)"
+      ></app-task-accordion>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+</mat-card>

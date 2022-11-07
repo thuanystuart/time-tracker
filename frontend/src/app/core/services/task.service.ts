@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task } from '@entities/task.model';
 import { Map } from 'immutable'
+import { DateTime } from 'luxon';
 import { BehaviorSubject, catchError, map, Observable, ObservableInput, tap, throwError } from 'rxjs';
 
 @Injectable({
@@ -15,7 +16,15 @@ export class TaskService {
   }
 
   private tasksSource: BehaviorSubject<Map<number, Task>> = new BehaviorSubject<Map<number, Task>>(Map<number, Task>())
-  tasks$: Observable<Task[]> = this.tasksSource.asObservable().pipe(map(tasks => Array.from(tasks.sort((a, b) => (a.end_datetime > b.end_datetime) ? -1 : ((a.end_datetime < b.end_datetime) ? 1 : 0)).values())))
+  tasks$: Observable<[DateTime, Task[]][]> = this.tasksSource.asObservable().pipe(
+    map(tasks => Array.from(
+      tasks
+      .sort((a, b) => (a.end_datetime > b.end_datetime) ? -1 : ((a.end_datetime < b.end_datetime) ? 1 : 0))
+      .toList()
+      .groupBy(task => task.end_datetime.startOf('day'))
+      .map(group => Array.from(group.values()))
+    )),
+  )
 
   createTask(task: Task): Observable<Task> {
     return this.http.post<Task>('task', task)
