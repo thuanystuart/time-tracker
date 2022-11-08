@@ -5,13 +5,15 @@ from marshmallow import ValidationError
 
 from src.entities.utils import db
 from src.entities.time_entry import TimeEntry
+from src.entities.task import Task
 from src.serializers.time_entry import TimeEntrySchema
 from src.blueprints.utils import RequestManager
 
 time_entry_page = Blueprint('time_entry_page', __name__)
 CORS(time_entry_page, supports_credentials=True)
 
-request_manager = RequestManager(TimeEntry, TimeEntrySchema, 'time entry')
+request_manager = RequestManager(TimeEntry, TimeEntrySchema, 'time entry',
+                                 { 'entity': Task, 'key': 'time_entries', 'child_key': 'task_id' })
 
 @time_entry_page.route('/time_entry', methods=['GET'])
 @login_required
