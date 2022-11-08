@@ -12,7 +12,7 @@ export class TaskCardComponent implements OnInit {
   @Input() task : Task | TimeEntry | undefined
   @Input() isTask = true
   @Input() isExpanded = false
-  @Output() delete = new EventEmitter<number>()
+  @Output() delete = new EventEmitter<Task | TimeEntry>()
   @Output() restart = new EventEmitter<Task>()
   @Output() togglePanel = new EventEmitter<void>()
 
@@ -29,7 +29,7 @@ export class TaskCardComponent implements OnInit {
   }
 
   onDelete() {
-    this.delete.emit(this.task?.id)
+    this.delete.emit(this.task)
   }
 
   onStart() {

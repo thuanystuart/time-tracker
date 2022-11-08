@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '@entities/task.model';
+import { TimeEntry } from '@entities/timeEntry.model';
 
 @Component({
   selector: 'app-task-accordion',
@@ -10,16 +11,16 @@ export class TaskAccordionComponent {
 
   @Input() task : Task | undefined
   @Output() deleteTask = new EventEmitter<number>()
-  @Output() deleteTimeEntry = new EventEmitter<number>()
+  @Output() deleteTimeEntry = new EventEmitter<[TimeEntry, Task]>()
   @Output() restartTask = new EventEmitter<Task>()
   isPanelOpen = false
 
-  onDeleteTask(id : number) {
-    this.deleteTask.emit(id)
+  onDeleteTask(task: Task) {
+    this.deleteTask.emit(task.id)
   }
 
-  onDeleteTimeEntry(id : number) {
-    this.deleteTimeEntry.emit(id)
+  onDeleteTimeEntry(timeEntry: TimeEntry) {
+    this.task && this.deleteTimeEntry.emit([timeEntry, this.task])
   }
 
   onRestart(task: Task) {

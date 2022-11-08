@@ -47,7 +47,7 @@ export class TimerService {
         description: task.description,
         start_datetime: this.start_datetime,
         end_datetime: DateTime.now(),
-      })
+      }, task)
       .subscribe(() => { this.resetTimer() })
     } else {
       this.taskService.createTask({

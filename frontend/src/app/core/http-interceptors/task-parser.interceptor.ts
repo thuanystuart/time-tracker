@@ -33,6 +33,24 @@ export class TaskParserInterceptor implements HttpInterceptor {
           return parsedEvent
         })
       )
+    } else if (request.url?.endsWith('/time_entry') && request.method != 'DELETE') {
+      return next.handle(request).pipe(
+        map((event: HttpEvent<unknown>) => {
+          let parsedEvent = event
+          if (event instanceof HttpResponse && event.status === 200 && event.body) {
+            if (Array.isArray(event.body)) {
+              parsedEvent = event.clone({
+                body: event.body.map((rawTimeEntry: RawTimeEntry) => this.parseTimeEntry(rawTimeEntry))
+              })
+            } else {
+              parsedEvent = event.clone({
+                body: this.parseTimeEntry(event.body as RawTimeEntry)
+              })
+            }
+          }
+          return parsedEvent
+        })
+      )
     } else {
       return next.handle(request)
     }

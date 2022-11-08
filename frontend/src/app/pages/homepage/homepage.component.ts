@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { TaskService } from '@services/task.service';
 import { TimerService } from '@services/timer.service';
 import { Task } from '@entities/task.model';
+import { TimeEntryService } from '@services/time-entry.service';
+import { TimeEntry } from '@entities/timeEntry.model';
 
 @Component({
   selector: 'app-homepage',
@@ -10,14 +12,18 @@ import { Task } from '@entities/task.model';
 })
 export class HomepageComponent {
 
-  constructor(public taskService : TaskService, private timerService: TimerService) { }
+  constructor(
+    public taskService : TaskService,
+    private timerService: TimerService,
+    private timeEntryService: TimeEntryService
+  ) { }
 
   onDeleteTask(id: number) {
     this.taskService.deleteTask(id).subscribe()
   }
 
-  onDeleteTimeEntry(id: number) {
-    // this.taskService.deleteTask(id).subscribe()
+  onDeleteTimeEntry(timeEntryTaskTuple: [TimeEntry, Task]) {
+    this.timeEntryService.deleteTimeEntry(timeEntryTaskTuple[0], timeEntryTaskTuple[1]).subscribe()
   }
 
   onRestart(task: Task) {

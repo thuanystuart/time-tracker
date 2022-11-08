@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task } from '@entities/task.model';
+import { TimeEntry } from '@entities/timeEntry.model';
 import { Map } from 'immutable'
 import { DateTime } from 'luxon';
 import { BehaviorSubject, catchError, map, Observable, ObservableInput, tap, throwError } from 'rxjs';
@@ -62,6 +63,24 @@ export class TaskService {
       catchError(error => {
         return this.handleError(error)
       })
+    )
+  }
+
+  addTimeEntry(timeEntry: TimeEntry, task: Task) {
+    const new_time_entries = task.time_entries?.concat(timeEntry)
+    this.tasksSource.next(
+      this.tasksSource.value.update(task.id || 0, (task: Task | undefined) => (
+        { ...task, time_entries: new_time_entries } as Task
+      ))
+    )
+  }
+
+  removeTimeEntry(timeEntry: TimeEntry, task: Task) {
+    const new_time_entries = task.time_entries?.filter((item) => item !== timeEntry)
+    this.tasksSource.next(
+      this.tasksSource.value.update(task.id || 0, (task: Task | undefined) => (
+        { ...task, time_entries: new_time_entries } as Task
+      ))
     )
   }
 

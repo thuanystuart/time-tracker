@@ -2,22 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TimeEntry } from '@entities/timeEntry.model';
+import { Task } from '@entities/task.model';
 import { Observable, catchError, throwError, ObservableInput, tap } from 'rxjs';
+import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimeEntryService {
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private taskService: TaskService) { }
 
-  createTimeEntry(timeEntry: TimeEntry): Observable<TimeEntry> {
+  createTimeEntry(timeEntry: TimeEntry, task: Task): Observable<TimeEntry> {
     return this.http.post<TimeEntry>('time_entry', timeEntry)
     .pipe(
       tap(timeEntry => {
-        console.log(timeEntry)
+        this.taskService.addTimeEntry(timeEntry, task)
       }),
       catchError(error => { return this.handleError(error) })
+    )
+  }
+
+  deleteTimeEntry(time_entry: TimeEntry, task: Task): Observable<void> {
+    return this.http.delete<void>(`time_entry?id=${time_entry.id}`)
+    .pipe(
+      tap(() => {
+        this.taskService.removeTimeEntry(time_entry, task)
+      }),
+      catchError(error => {
+        return this.handleError(error)
+      })
     )
   }
 
