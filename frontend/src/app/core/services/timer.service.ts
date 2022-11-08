@@ -31,6 +31,14 @@ export class TimerService {
   }
 
   startTimer(task: Task | undefined = undefined) {
+    if (this.isTimerRunningSource.value) {
+      this.endTimer(task)
+    } else {
+      this._startTimer(task)
+    }
+  }
+
+  private _startTimer(task: Task | undefined = undefined) {
     this.start_datetime = DateTime.now()
     this.currentTaskSource.next(task || this.currentTaskSource.value)
     this.isTimerRunningSource.next(true)
@@ -39,7 +47,7 @@ export class TimerService {
     })
   }
 
-  endTimer() {
+  endTimer(nextTask: Task | undefined = undefined) {
     const task = this.currentTaskSource.value
     if (task.id) {
       this.timeEntryService.createTimeEntry({
@@ -48,13 +56,19 @@ export class TimerService {
         start_datetime: this.start_datetime,
         end_datetime: DateTime.now(),
       }, task)
-      .subscribe(() => { this.resetTimer() })
+      .subscribe(() => {
+        this.resetTimer()
+        if (nextTask) this._startTimer(nextTask)
+      })
     } else {
       this.taskService.createTask({
         ...task,
         'start_datetime': this.start_datetime,
         'end_datetime': DateTime.now()
-      }).subscribe(() => { this.resetTimer() })
+      }).subscribe(() => {
+        this.resetTimer()
+        if (nextTask) this._startTimer(nextTask)
+      })
     }
   }
 
