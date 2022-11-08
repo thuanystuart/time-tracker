@@ -24,8 +24,8 @@ export class TaskCardComponent implements OnInit {
     }
   }
 
-  hasChildren(): boolean {
-    return (this.isTask && ((this.task as Task).time_entries?.length || 0) > 1) || false
+  countChildren(): number {
+    return (this.isTask && (this.task as Task).time_entries?.length) || 0
   }
 
   onDelete() {

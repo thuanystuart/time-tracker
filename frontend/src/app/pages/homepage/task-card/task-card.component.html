@@ -1,6 +1,12 @@
 <ng-container *ngIf="task">
-  <button mat-icon-button color="accent" [style.visibility]="hasChildren() ? 'visible' : 'hidden'" (click)="onTogglePanel()">
-    <mat-icon>{{ isExpanded ? 'expand_circle_down' : 'arrow_circle_right'}}</mat-icon>
+  <button
+    mat-icon-button
+    color="accent"
+    class="toggle-button"
+    [style.visibility]="countChildren() > 1 ? 'visible' : 'hidden'"
+    (click)="onTogglePanel()"
+  >
+    <div class="num-children-icon">{{countChildren()}}</div>
   </button>
   <span class="task-description">{{task.description}}</span>
   <span class="task-time">{{task.start_datetime.toFormat('h:mm a')}} - {{task.end_datetime.toFormat('h:mm a')}}</span>

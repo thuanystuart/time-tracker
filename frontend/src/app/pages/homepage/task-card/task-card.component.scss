@@ -27,3 +27,23 @@
 .task-duration {
   color: theme.$primary-color;
 }
+
+.toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.num-children-icon {
+  display: flex;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  background: theme.$accent-light;
+  border-radius: 50%;
+  align-self: center;
+  justify-content: center;
+  color: theme.$primary-color;
+  font-size: 12px;
+  font-weight: 600;
+}
