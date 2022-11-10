@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from '@services/auth.service';
 import { initializeAppFactory } from '@initializers/app.initializer';
-import { TaskParserInterceptor } from '@interceptors/task-parser.interceptor';
+import { DateTimeParserInterceptor } from '@interceptors/datetime-parser.interceptor';
 
 @NgModule({
   declarations: [],
@@ -35,7 +35,7 @@ import { TaskParserInterceptor } from '@interceptors/task-parser.interceptor';
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingStateInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: TaskParserInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: DateTimeParserInterceptor, multi: true },
     { provide: APP_INITIALIZER, useFactory: initializeAppFactory, deps: [AuthService], multi: true },
   ],
 })
