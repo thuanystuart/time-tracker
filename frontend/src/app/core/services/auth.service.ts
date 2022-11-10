@@ -87,13 +87,10 @@ export class AuthService {
         this.userSource.next(user)
         this.isLoggedIn = true
       }),
-      catchError(error => {
+      map(() => void 0),
+      catchError(() => {
         this.isLoggedIn = false
-        if (error.status == 401) {
-          return of(false)
-        } else {
-          return this.handleError(error, false)
-        }
+        return of(undefined)
       })
     )
   }
