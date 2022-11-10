@@ -16,13 +16,13 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     headers: new HttpHeaders({
       ContentType: 'application/json; charset=UTF-8',
     }),
-    withCredentials: true,
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     request = request.clone({
       ...this.httpOptions,
-      responseType: request.method == 'DELETE' ? 'text' : 'json',
+      withCredentials: true,
+      responseType: 'json',
       url: environment.baseUrl + request.url
     })
     return next.handle(request)
