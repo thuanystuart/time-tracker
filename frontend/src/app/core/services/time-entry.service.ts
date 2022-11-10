@@ -13,21 +13,21 @@ export class TimeEntryService {
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private taskService: TaskService) { }
 
-  createTimeEntry(timeEntry: TimeEntry, task: Task): Observable<TimeEntry> {
-    return this.http.post<TimeEntry>('time_entry', timeEntry)
+  createTimeEntry(timeEntry: TimeEntry): Observable<TimeEntry> {
+    return this.http.post<Task>('time_entry', timeEntry)
     .pipe(
-      tap(timeEntry => {
-        this.taskService.addTimeEntry(timeEntry, task)
+      tap(updatedTask => {
+        this.taskService.setTaskById(updatedTask.id || 0, updatedTask)
       }),
       catchError(error => { return this.handleError(error) })
     )
   }
 
-  deleteTimeEntry(time_entry: TimeEntry, task: Task): Observable<void> {
-    return this.http.delete<void>(`time_entry?id=${time_entry.id}`)
+  deleteTimeEntry(time_entry: TimeEntry): Observable<void> {
+    return this.http.delete<Task>(`time_entry?id=${time_entry.id}`)
     .pipe(
-      tap(() => {
-        this.taskService.removeTimeEntry(time_entry, task)
+      tap(updatedTask => {
+        this.taskService.setTaskById(updatedTask.id || 0, updatedTask)
       }),
       catchError(error => {
         return this.handleError(error)

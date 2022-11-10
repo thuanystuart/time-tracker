@@ -32,6 +32,10 @@ export class TaskService {
     return tasks.has(id) ?  tasks.get(id) : undefined
   }
 
+  setTaskById(id: number, task: Task) {
+    this.tasksSource.next(this.tasksSource.value.set(id, task))
+  }
+
   createTask(task: Task): Observable<Task> {
     return this.http.post<Task>('task', task)
     .pipe(
@@ -63,24 +67,6 @@ export class TaskService {
       catchError(error => {
         return this.handleError(error)
       })
-    )
-  }
-
-  addTimeEntry(timeEntry: TimeEntry, task: Task) {
-    const new_time_entries = task.time_entries?.concat(timeEntry)
-    this.tasksSource.next(
-      this.tasksSource.value.update(task.id || 0, (task: Task | undefined) => (
-        { ...task, time_entries: new_time_entries } as Task
-      ))
-    )
-  }
-
-  removeTimeEntry(timeEntry: TimeEntry, task: Task) {
-    const new_time_entries = task.time_entries?.filter((item) => item !== timeEntry)
-    this.tasksSource.next(
-      this.tasksSource.value.update(task.id || 0, (task: Task | undefined) => (
-        { ...task, time_entries: new_time_entries } as Task
-      ))
     )
   }
 

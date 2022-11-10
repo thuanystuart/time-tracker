@@ -22,8 +22,8 @@ export class HomepageComponent {
     this.taskService.deleteTask(id).subscribe()
   }
 
-  onDeleteTimeEntry(timeEntryTaskTuple: [TimeEntry, Task]) {
-    this.timeEntryService.deleteTimeEntry(timeEntryTaskTuple[0], timeEntryTaskTuple[1]).subscribe()
+  onDeleteTimeEntry(timeEntry: TimeEntry) {
+    this.timeEntryService.deleteTimeEntry(timeEntry).subscribe()
   }
 
   onRestart(task: Task) {
