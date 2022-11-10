@@ -37,7 +37,7 @@ class RequestManager:
     except ValidationError as error:
       return make_response(error.messages, 400)
 
-    parent = child[child_key]
+    parent = parent_entity.query.get(child[child_key])
     parent[parent_key].append(child)
 
     db.session.commit()

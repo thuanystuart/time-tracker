@@ -23,7 +23,7 @@ def get_time_entrys():
 @time_entry_page.route('/time_entry', methods=['POST'])
 @login_required
 def add_time_entry():
-  return request_manager.add_child(request, parent_entity=Task, parent_schema=TaskSchema(), parent_key='time_entries', child_key='task', return_parent=True)
+  return request_manager.add_child(request, parent_entity=Task, parent_schema=TaskSchema(), parent_key='time_entries', child_key='task_id', return_parent=True)
 
 @time_entry_page.route('/time_entry', methods=['PUT'])
 @login_required
