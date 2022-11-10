@@ -8,14 +8,11 @@ from sqlalchemy import desc
 from src.entities.utils import db
 
 class RequestManager:
-  def __init__(self, entity: DefaultMeta, schema: Schema, entity_name: str,
-               parent: { 'entity': DefaultMeta, 'key': str, 'child_key': str } = None):
+  def __init__(self, entity: DefaultMeta, schema: Schema, entity_name: str):
     self.entity_name = entity_name
     self.schema = schema()
     self.entity = entity
-    self.parent = parent['entity'] if parent is not None else None
-    self.parent_key = parent['key'] if parent is not None else None
-    self.child_key = parent['child_key'] if parent is not None else None
+
 
   def get(self, order_by=None):
     if order_by is None:
@@ -30,16 +27,21 @@ class RequestManager:
     except ValidationError as error:
       return make_response(error.messages, 400)
 
-    if self.parent is not None:
-      self._add_child(created_obj)
-
     db.session.add(created_obj)
     db.session.commit()
     return self.schema.dump(created_obj)
 
-  def _add_child(self, child):
-    parent = self.parent.query.get(child[self.child_key])
-    parent[self.parent_key].append(child)
+  def add_child(self, request, parent_entity: DefaultMeta, parent_schema: Schema, parent_key: str, child_key: str, return_parent: bool = False):
+    try:
+      child = self.schema.load(request.get_json())
+    except ValidationError as error:
+      return make_response(error.messages, 400)
+
+    parent = child[child_key]
+    parent[parent_key].append(child)
+
+    db.session.commit()
+    return parent_schema.dump(parent) if return_parent else self.schema.dump(child)
 
   def update(self, request):
     try:
@@ -62,16 +64,21 @@ class RequestManager:
     except ValidationError as error:
       return make_response(error.messages, 400)
 
-    if self.parent is not None:
-      self._remove_child(obj)
-
     db.session.delete(obj)
     db.session.commit()
     return make_response(f"The {self.entity_name} was successfully deleted.", 200)
 
-  def _remove_child(self, child):
-    parent = self.parent.query.get(child[self.child_key])
-    parent[self.parent_key].remove(child)
+  def remove_child(self, request, parent_entity: DefaultMeta, parent_schema: Schema, parent_key: str, child_key: str, return_parent: bool = False):
+    try:
+      child = self._get_object_by_id(request)
+    except ValidationError as error:
+      return make_response(error.messages, 400)
+
+    parent = child[child_key]
+    parent[parent_key].remove(child)
+
+    db.session.commit()
+    return parent_schema.dump(parent) if return_parent else make_response(f"The {self.entity_name} was successfully deleted.", 200)
 
   def _get_object_by_id(self, request, from_json=False):
     obj_id = request.json.get('id', None) if from_json else request.args.get('id', None)

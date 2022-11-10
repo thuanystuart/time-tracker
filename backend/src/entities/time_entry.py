@@ -19,9 +19,3 @@ class TimeEntry(db.Model):
 
   def __getitem__(self, field):
     return self.__dict__[field]
-
-# @event.listens_for(TimeEntry, 'after_delete')
-# def receive_after_delete(mapper, connection, time_entry):
-#   task = time_entry.task
-#   if len(task.time_entries) == 0:
-#     db.session.delete(task)
