@@ -9,6 +9,7 @@ import { TaskAccordionComponent } from './homepage/task-accordion/task-accordion
 import { TaskCardComponent } from './homepage/task-card/task-card.component';
 
 import { CoreModule } from '../core/core.module';
+import { TimeEntryCardComponent } from './homepage/time-entry-card/time-entry-card.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CoreModule } from '../core/core.module';
     TopBarComponent,
     TimerComponent,
     TaskCardComponent,
+    TimeEntryCardComponent,
     TaskAccordionComponent,
   ],
   imports: [

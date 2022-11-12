@@ -23,3 +23,11 @@ export interface RawTimeEntry {
     description: string,
   }
 }
+
+export const buildEmptyTimeEntry = () => {
+  return {
+    description: '',
+    start_datetime: DateTime.now(),
+    end_datetime: DateTime.now(),
+  }
+}

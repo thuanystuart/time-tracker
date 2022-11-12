@@ -16,11 +16,10 @@
     ></app-task-card>
   </mat-expansion-panel-header>
   <div *ngFor="let time_entry of task.time_entries">
-    <app-task-card
-      [isTask]="false"
-      [task]="time_entry"
+    <app-time-entry-card
+      [timeEntry]="time_entry"
       (delete)="onDeleteTimeEntry($event)"
-    ></app-task-card>
+    ></app-time-entry-card>
     <mat-divider></mat-divider>
   </div>
 </mat-expansion-panel>

@@ -1,20 +1,18 @@
-<ng-container *ngIf="task">
-  <button
-    mat-icon-button
-    color="accent"
-    class="toggle-button"
-    [style.visibility]="countChildren() > 1 ? 'visible' : 'hidden'"
-    (click)="onTogglePanel()"
-  >
-    <div class="num-children-icon">{{countChildren()}}</div>
-  </button>
-  <span class="task-description">{{task.description}}</span>
-  <span class="task-time">{{task.start_datetime.toFormat('h:mm a')}} - {{task.end_datetime.toFormat('h:mm a')}}</span>
-  <span class="task-duration">{{duration.toFormat("hh:mm:ss")}}</span>
-  <button mat-icon-button color="accent" [style.visibility]="isTask ? 'visible' : 'hidden'" (click)="onStart()">
-    <mat-icon>play_arrow</mat-icon>
-  </button>
-  <button mat-icon-button color="warn" (click)="onDelete()">
-    <mat-icon>delete</mat-icon>
-  </button>
-</ng-container>
+<button
+  mat-icon-button
+  color="accent"
+  class="toggle-button"
+  [style.visibility]="countChildren() > 1 ? 'visible' : 'hidden'"
+  (click)="onTogglePanel()"
+>
+  <div class="num-children-icon">{{countChildren()}}</div>
+</button>
+<span class="task-description">{{task.description}}</span>
+<span class="task-time">{{task.start_datetime.toFormat('h:mm a')}} - {{task.end_datetime.toFormat('h:mm a')}}</span>
+<span class="task-duration">{{duration.toFormat("hh:mm:ss")}}</span>
+<button mat-icon-button color="accent" (click)="onStart()">
+  <mat-icon>play_arrow</mat-icon>
+</button>
+<button mat-icon-button color="warn" (click)="onDelete()">
+  <mat-icon>delete</mat-icon>
+</button>
