@@ -7,3 +7,9 @@ export const SIGN_UP = 'SIGN_UP'
 export const requestTypesList = ['', LOGIN, LOGOUT, SIGN_UP] as const
 export type requestTypes = typeof requestTypesList[number]
 export const REQUEST_TYPE = new HttpContextToken<requestTypes>(() => '')
+
+export interface errorHandlerType { handle: boolean, showMessage?: boolean }
+export const ERROR_HANDLER_CONFIG = new HttpContextToken<errorHandlerType>(() => ({
+  handle: true,
+  showMessage: true,
+}))

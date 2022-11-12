@@ -1,18 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task } from '@entities/task.model';
-import { TimeEntry } from '@entities/timeEntry.model';
 import { Map } from 'immutable'
 import { DateTime } from 'luxon';
-import { BehaviorSubject, catchError, map, Observable, ObservableInput, tap, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {
+  constructor(private http: HttpClient) {
     this.getTasks().subscribe()
   }
 
@@ -41,8 +39,7 @@ export class TaskService {
     .pipe(
       tap(task => {
         this.tasksSource.next(this.tasksSource.value.set(task.id || 0, task))
-      }),
-      catchError(error => { return this.handleError(error) })
+      })
     )
   }
 
@@ -51,9 +48,6 @@ export class TaskService {
     .pipe(
       tap(tasks => {
         this.tasksSource.next(tasks.reduce((acc, task) => acc.set(task.id || 0, task), Map<number, Task>()))
-      }),
-      catchError(error => {
-        return this.handleError(error)
       })
     )
   }
@@ -63,28 +57,7 @@ export class TaskService {
     .pipe(
       tap(() => {
         this.tasksSource.next(this.tasksSource.value.delete(id))
-      }),
-      catchError(error => {
-        return this.handleError(error)
       })
     )
-  }
-
-  handleError(error: any, showAlert = true): ObservableInput<any> {
-    let message = 'An unknown error occured.'
-    switch(error.status) {
-      case 0:
-        message = 'There was a problem connecting to the server.'
-        break
-      case 401:
-        message = 'User is not authorized.'
-        break
-      case 400:
-        if (typeof error.error == 'string') message = error.error
-        break
-      default:
-    }
-    if (showAlert) this.snackBar.open(message, undefined, { duration: 2000 })
-    return throwError(() => new Error(error.message))
   }
 }

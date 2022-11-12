@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
-import { BehaviorSubject, Observable, ObservableInput, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { User } from '@entities/user.model'
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { LOGIN, LOGOUT, REQUEST_TYPE, SIGN_UP } from '@interceptors/request-types';
+import { User } from '@entities/user.model';
+import { ERROR_HANDLER_CONFIG, LOGIN, LOGOUT, REQUEST_TYPE, SIGN_UP } from '@interceptors/request-context';
 
 interface Credential {
   email: string,
@@ -17,38 +16,17 @@ interface Credential {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient) { }
 
   isLoggedIn = false
   private userSource: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined)
   user$: Observable<User | undefined> = this.userSource.asObservable()
   redirectUrl: string | null = null
 
-  handleError(error: any, showAlert = true): ObservableInput<any> {
-    let message = 'An unknown error occured.'
-    switch(error.status) {
-      case 0:
-        message = 'There was a problem connecting to the server.'
-        break
-      case 401:
-        message = 'User is not authorized.'
-        break
-      case 400:
-        if (typeof error.error == 'string') message = error.error
-        break
-      default:
-    }
-    if (showAlert) this.snackBar.open(message, undefined, { duration: 2000 })
-    return throwError(() => new Error(error.message))
-  }
-
   signUp(user: User): Observable<User> {
     return this.http.post<User>('signup', user, {
       context: new HttpContext().set(REQUEST_TYPE, SIGN_UP),
     })
-    .pipe(
-      catchError(error => { return this.handleError(error) })
-    )
   }
 
   login(credential: Credential): Observable<User> {
@@ -59,8 +37,7 @@ export class AuthService {
       tap(user => {
         this.userSource.next(user)
         this.isLoggedIn = true
-      }),
-      catchError(error => { return this.handleError(error) })
+      })
     )
   }
 
@@ -75,13 +52,14 @@ export class AuthService {
       }),
       map(() => {
         return false
-      }),
-      catchError(error => { return this.handleError(error) })
+      })
     )
   }
 
   checkLogin(): Observable<void> {
-    return this.http.get<User>('current_user')
+    return this.http.get<User>('current_user', {
+      context: new HttpContext().set(ERROR_HANDLER_CONFIG, { handle: false }),
+    })
     .pipe(
       tap(user => {
         this.userSource.next(user)

@@ -5,7 +5,7 @@ import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LoadingStateService } from '@services/loading-state.service';
-import { LOGIN } from '@interceptors/request-types';
+import { LOGIN } from '@interceptors/request-context';
 
 @Component({
   selector: 'app-login',

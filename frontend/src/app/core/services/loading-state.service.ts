@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { requestTypesList, requestTypes } from '@interceptors/request-types';
+import { requestTypesList, requestTypes } from '@interceptors/request-context';
 
 type loadingType = Record<typeof requestTypesList[number], boolean>
 
