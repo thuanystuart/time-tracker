@@ -15,11 +15,6 @@ CORS(time_entry_page, supports_credentials=True)
 
 request_manager = RequestManager(TimeEntry, TimeEntrySchema, 'time entry')
 
-@time_entry_page.route('/time_entry', methods=['GET'])
-@login_required
-def get_time_entrys():
-  return request_manager.get()
-
 @time_entry_page.route('/time_entry', methods=['POST'])
 @login_required
 def add_time_entry():
