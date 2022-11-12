@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { buildEmptyTask, Task } from '@entities/task.model';
+import { TimeEntry } from '@entities/timeEntry.model';
 import { Duration } from 'luxon';
 
 @Component({
@@ -17,7 +18,10 @@ export class TaskCardComponent implements OnInit {
   duration = Duration.fromMillis(0)
 
   ngOnInit(): void {
-    this.duration = (this.task.end_datetime).diff(this.task.start_datetime)
+    this.duration = Duration.fromMillis(this.task.time_entries?.reduce(
+      (acc, timeEntry: TimeEntry) => {
+        return acc + (timeEntry.end_datetime).diff(timeEntry.start_datetime).toMillis()
+      }, 0) || 0)
   }
 
   countChildren(): number {
