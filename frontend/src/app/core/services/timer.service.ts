@@ -5,9 +5,7 @@ import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import { TaskService } from './task.service';
 import { TimeEntryService } from './time-entry.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TimerService {
 
   constructor(private taskService: TaskService, private timeEntryService: TimeEntryService) { }

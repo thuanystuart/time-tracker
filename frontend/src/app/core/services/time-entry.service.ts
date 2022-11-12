@@ -5,9 +5,7 @@ import { Task } from '@entities/task.model';
 import { Observable, tap } from 'rxjs';
 import { TaskService } from './task.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TimeEntryService {
 
   constructor(private http: HttpClient, private taskService: TaskService) { }

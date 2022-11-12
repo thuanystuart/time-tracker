@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TaskService } from '@services/task.service';
 import { TimerService } from '@services/timer.service';
-import { Task } from '@entities/task.model';
 import { TimeEntryService } from '@services/time-entry.service';
+import { Task } from '@entities/task.model';
 import { TimeEntry } from '@entities/timeEntry.model';
 
 @Component({

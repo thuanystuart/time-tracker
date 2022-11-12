@@ -5,9 +5,7 @@ import { Map } from 'immutable'
 import { DateTime } from 'luxon';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TaskService {
 
   constructor(private http: HttpClient) {
