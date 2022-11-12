@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { buildEmptyTask } from '@entities/task.model';
 import { TimerService } from '@services/timer.service';
+import { ProjectSelectorMenuComponent } from '../project-selector-menu/project-selector-menu.component';
 
 @Component({
   selector: 'app-timer',
@@ -9,6 +10,8 @@ import { TimerService } from '@services/timer.service';
   styleUrls: ['./timer.component.scss']
 })
 export class TimerComponent implements OnInit, OnDestroy {
+
+  @ViewChild(ProjectSelectorMenuComponent) projectSelectorMenu: ProjectSelectorMenuComponent | undefined;
 
   task = buildEmptyTask()
   isTimerRunning = false
