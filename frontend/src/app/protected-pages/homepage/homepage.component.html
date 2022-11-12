@@ -1,8 +1,8 @@
 
-<mat-card *ngFor="let tasks of (taskService.tasks$ | async)">
+<mat-card *ngFor="let tasks of (taskService.tasks$ | async); trackBy trackByGroupedTasks" >
   <span class="date-header">{{tasks[0].toFormat('EEE, dd LLL')}}</span>
   <div class="tasks-container">
-    <div *ngFor="let task of tasks[1]">
+    <div *ngFor="let task of tasks[1]; trackBy trackByTasks" >
       <app-task-accordion
         [task]="task"
         (deleteTask)="onDeleteTask($event)"
