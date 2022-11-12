@@ -1,13 +1,27 @@
+<span>{{(this.timerService.duration$ | async)?.toFormat("hh:mm:ss")}}</span>
 <mat-form-field class="task-input" floatLabel="never" class="task-input">
   <input matInput [ngModel]="task.description" (ngModelChange)="onChangeTaskDescription($event)"/>
   <mat-placeholder class="placeholder">
     {{isTimerRunning ? '(No description)' : 'What are you working on?'}}
   </mat-placeholder>
 </mat-form-field>
-<span>{{(this.timerService.duration$ | async)?.toFormat("hh:mm:ss")}}</span>
+<button mat-stroked-button [matMenuTriggerFor]="menu" class="project-selector">
+  <mat-icon class="project-icon">folder</mat-icon>
+  Select a project
+</button>
 <button mat-mini-fab [color]="isTimerRunning ? 'warn' : 'accent'" (click)="onStartStopTimer()">
   <mat-icon class="white-icon">{{isTimerRunning ? 'stop' : 'play_arrow'}}</mat-icon>
 </button>
 <button mat-mini-fab color="primary" (click)="this.timerService.resetTimer()" [disabled]="!isTimerRunning">
   <mat-icon class="white-icon">delete</mat-icon>
 </button>
+<mat-menu #menu="matMenu" xPosition="before" class="project-menu">
+  <div class="no-projects">
+    No projects yet.
+  </div>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>
+    <mat-icon>add</mat-icon>
+    Create project
+  </button>
+</mat-menu>
