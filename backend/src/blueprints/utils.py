@@ -4,6 +4,7 @@ from flask_sqlalchemy.model import DefaultMeta
 from flask import request, make_response
 from marshmallow import ValidationError
 from sqlalchemy import desc
+from flask_login import current_user
 
 from src.entities.utils import db
 
@@ -13,12 +14,11 @@ class RequestManager:
     self.schema = schema()
     self.entity = entity
 
-
   def get(self, order_by=None):
     if order_by is None:
-      objects = self.entity.query.all()
+      objects = self.entity.query.filter(self.entity.user_id==current_user.id).all()
     else:
-      objects = self.entity.query.order_by(desc(order_by)).all()
+      objects = self.entity.query.filter(self.entity.user_id==current_user.id).order_by(desc(order_by)).all()
     return self.schema.dump(objects, many=True)
 
   def add(self, request):
