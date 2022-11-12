@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TimeEntry } from '@entities/timeEntry.model';
 import { Task } from '@entities/task.model';
 import { Observable, tap } from 'rxjs';
@@ -11,7 +10,7 @@ import { TaskService } from './task.service';
 })
 export class TimeEntryService {
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar, private taskService: TaskService) { }
+  constructor(private http: HttpClient, private taskService: TaskService) { }
 
   createTimeEntry(timeEntry: TimeEntry): Observable<Task> {
     return this.http.post<Task>('time_entry', timeEntry)
