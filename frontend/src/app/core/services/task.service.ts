@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Task } from '@entities/task.model';
+import { RESPONSE_TYPE_HEADER } from '@interceptors/request-context';
 import { Map } from 'immutable'
 import { DateTime } from 'luxon';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
@@ -51,7 +52,9 @@ export class TaskService {
   }
 
   deleteTask(id: number): Observable<void> {
-    return this.http.delete<void>(`task?id=${id}`)
+    return this.http.delete<void>(`task?id=${id}`, {
+      context: new HttpContext().set(RESPONSE_TYPE_HEADER, 'text'),
+    })
     .pipe(
       tap(() => {
         this.tasksSource.next(this.tasksSource.value.delete(id))

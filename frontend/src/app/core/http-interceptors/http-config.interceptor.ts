@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { RESPONSE_TYPE_HEADER } from './request-context';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
@@ -22,7 +23,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     request = request.clone({
       ...this.httpOptions,
       withCredentials: true,
-      responseType: 'json',
+      responseType: request.context.get(RESPONSE_TYPE_HEADER),
       url: environment.baseUrl + request.url
     })
     return next.handle(request)

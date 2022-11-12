@@ -13,3 +13,5 @@ export const ERROR_HANDLER_CONFIG = new HttpContextToken<errorHandlerType>(() =>
   handle: true,
   showMessage: true,
 }))
+
+export const RESPONSE_TYPE_HEADER = new HttpContextToken<"arraybuffer" | "blob" | "json" | "text" | undefined>(() => ('json'))
