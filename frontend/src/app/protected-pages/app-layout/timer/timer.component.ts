@@ -11,7 +11,7 @@ import { ProjectSelectorMenuComponent } from '../project-selector-menu/project-s
 })
 export class TimerComponent implements OnInit, OnDestroy {
 
-  @ViewChild(ProjectSelectorMenuComponent) projectSelectorMenu: ProjectSelectorMenuComponent | undefined;
+  @ViewChild(ProjectSelectorMenuComponent, {static: true}) projectSelectorMenu: ProjectSelectorMenuComponent | undefined;
 
   task = buildEmptyTask()
   isTimerRunning = false
