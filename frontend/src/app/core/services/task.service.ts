@@ -38,7 +38,12 @@ export class TaskService {
       task.project_id = task.project?.id
       delete task.project
     }
-    return this.http.post<Task>('task', task)
+    const parsedTask = {
+      ...task,
+      'start_datetime': task.start_datetime.toISO({ includeOffset: false }),
+      'end_datetime': task.end_datetime.toISO({ includeOffset: false })
+    }
+    return this.http.post<Task>('task', parsedTask)
     .pipe(
       tap(task => {
         this.tasksSource.next(this.tasksSource.value.set(task.id || 0, task))
