@@ -1,6 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenu } from '@angular/material/menu';
+import { buildEmptyProject, Project } from '@entities/project.model';
+import { ProjectService } from '@services/project.service';
+import { TimerService } from '@services/timer.service';
 import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dialog.component';
 
 @Component({
@@ -10,15 +13,21 @@ import { AddProjectDialogComponent } from '../add-project-dialog/add-project-dia
 })
 export class ProjectSelectorMenuComponent {
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, public projectService: ProjectService, private timerService: TimerService) {}
 
   @ViewChild(MatMenu, {static: true}) projectMenu : MatMenu | undefined;
+
+  onSelectProject(project: Project) {
+    project.id && this.timerService.setProject(project)
+  }
 
   onAddProject() {
     const dialogRef = this.dialog.open(AddProjectDialogComponent, { width: "max(30vw, 250px)" })
 
     dialogRef.afterClosed().subscribe((projectName) => {
-      console.log("name: ", projectName);
+      if (projectName != "") {
+        this.projectService.createProject({ ...buildEmptyProject(), 'name': projectName }).subscribe()
+      }
     })
   }
 }

@@ -6,3 +6,9 @@ export interface Project {
   user_id?: number,
   tasks?: Task[],
 }
+
+export const buildEmptyProject = () => {
+  return {
+    name: '',
+  }
+}

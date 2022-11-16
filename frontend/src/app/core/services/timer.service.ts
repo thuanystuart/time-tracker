@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Project } from '@entities/project.model';
 import { buildEmptyTask, Task } from '@entities/task.model';
 import { DateTime, Duration } from 'luxon';
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
@@ -26,6 +27,15 @@ export class TimerService {
 
   updateCurrentTask(task: Task) {
     this.currentTaskSource.next(task)
+  }
+
+  setProject(project: Project) {
+    this.currentTaskSource.next({ ...this.currentTaskSource.value,
+      'project': {
+        'id': project.id || 0,
+        'name': project.name,
+      }
+    })
   }
 
   startTimer(task: Task | undefined = undefined) {

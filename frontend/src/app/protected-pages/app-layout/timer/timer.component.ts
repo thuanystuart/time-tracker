@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { buildEmptyTask } from '@entities/task.model';
+import { Task, buildEmptyTask } from '@entities/task.model';
 import { TimerService } from '@services/timer.service';
 import { ProjectSelectorMenuComponent } from '../project-selector-menu/project-selector-menu.component';
 
@@ -13,7 +13,7 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   @ViewChild(ProjectSelectorMenuComponent, {static: true}) projectSelectorMenu: ProjectSelectorMenuComponent | undefined;
 
-  task = buildEmptyTask()
+  task : Task = buildEmptyTask()
   isTimerRunning = false
 
   timerRunningSubscription: Subscription | undefined

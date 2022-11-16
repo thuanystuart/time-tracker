@@ -11,6 +11,7 @@ export interface RawTask {
     id: number,
     name: string,
   },
+  project_id?: number,
   time_entries?: RawTimeEntry[]
 }
 
@@ -24,6 +25,7 @@ export interface Task {
     id: number,
     name: string,
   },
+  project_id?: number,
   time_entries?: TimeEntry[]
 }
 

@@ -7,7 +7,7 @@
 </mat-form-field>
 <button mat-stroked-button *ngIf="projectSelectorMenu && projectSelectorMenu.projectMenu" [matMenuTriggerFor]="projectSelectorMenu.projectMenu" class="project-selector">
   <mat-icon class="project-icon">folder</mat-icon>
-  Select a project
+  {{task.project ? task.project.name : "Select a project"}}
 </button>
 <button mat-mini-fab [color]="isTimerRunning ? 'warn' : 'accent'" (click)="onStartStopTimer()">
   <mat-icon class="white-icon">{{isTimerRunning ? 'stop' : 'play_arrow'}}</mat-icon>

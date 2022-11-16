@@ -1,7 +1,18 @@
 <mat-menu #projectMenu="matMenu" xPosition="before" class="project-menu">
-  <div class="no-projects">
-    No projects yet.
-  </div>
+  <ng-container *ngIf="projectService.projects$ | async; else noProjects">
+    <li
+      mat-menu-item
+      *ngFor="let project of (projectService.projects$ | async)"
+      (click)="onSelectProject(project)"
+  >
+      {{project.name}}
+    </li>
+  </ng-container>
+  <ng-template #noProjects>
+    <div class="no-projects">
+      No projects yet.
+    </div>
+  </ng-template>
   <mat-divider></mat-divider>
   <button mat-menu-item (click)="onAddProject()">
     <mat-icon>add</mat-icon>

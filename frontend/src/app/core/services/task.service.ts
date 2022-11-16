@@ -34,6 +34,10 @@ export class TaskService {
   }
 
   createTask(task: Task): Observable<Task> {
+    if (task.hasOwnProperty('project')) {
+      task.project_id = task.project?.id
+      delete task.project
+    }
     return this.http.post<Task>('task', task)
     .pipe(
       tap(task => {

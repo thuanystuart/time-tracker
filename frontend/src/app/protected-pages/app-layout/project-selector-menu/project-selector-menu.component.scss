@@ -13,8 +13,14 @@
   margin-top: 18px;
   min-height: 0 !important;
   width: 100% !important;
+  max-height: 223px;
 
   .mat-menu-content:not(:empty) {
     padding: 0;
+  }
+
+  .mat-menu-item:not(:last-child) {
+    height: 35px;
+    line-height: 35px;
   }
 }
