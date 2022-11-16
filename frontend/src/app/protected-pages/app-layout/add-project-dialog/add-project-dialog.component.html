@@ -1,0 +1,11 @@
+<span mat-dialog-title>Create project</span>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" class="project-name-input">
+    <mat-label>Project name</mat-label>
+    <input matInput [(ngModel)]="name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="actions-container">
+  <button mat-stroked-button mat-dialog-close="">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="name">Confirm</button>
+</div>

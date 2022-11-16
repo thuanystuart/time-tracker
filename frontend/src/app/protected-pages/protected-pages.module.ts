@@ -11,6 +11,7 @@ import { TaskCardComponent } from './homepage/task-card/task-card.component';
 import { CoreModule } from '../core/core.module';
 import { TimeEntryCardComponent } from './homepage/time-entry-card/time-entry-card.component';
 import { ProjectSelectorMenuComponent } from './app-layout/project-selector-menu/project-selector-menu.component';
+import { AddProjectDialogComponent } from './app-layout/add-project-dialog/add-project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ProjectSelectorMenuComponent } from './app-layout/project-selector-menu
     TimeEntryCardComponent,
     TaskAccordionComponent,
     ProjectSelectorMenuComponent,
+    AddProjectDialogComponent,
   ],
   imports: [
     CoreModule,

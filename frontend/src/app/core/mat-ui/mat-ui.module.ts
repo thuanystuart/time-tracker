@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatDividerModule,
     MatExpansionModule,
     MatChipsModule,
+    MatDialogModule,
   ]
 })
 export class MatUIModule { }
