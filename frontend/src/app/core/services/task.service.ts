@@ -24,6 +24,17 @@ export class TaskService {
     )),
   )
 
+  private parseTask(task: Task | Partial<Task>) {
+    let updates = {}
+    if (task.start_datetime) {
+      updates = { ...updates, 'start_datetime': task.start_datetime.toISO({ includeOffset: false })}
+    }
+    if (task.end_datetime) {
+      updates = { ...updates, 'end_datetime': task.end_datetime.toISO({ includeOffset: false })}
+    }
+    return { ...task, ...updates }
+  }
+
   getTaskById(id: number): Task | undefined {
     const tasks = this.tasksSource.value
     return tasks.has(id) ?  tasks.get(id) : undefined
@@ -33,17 +44,21 @@ export class TaskService {
     this.tasksSource.next(this.tasksSource.value.set(id, task))
   }
 
+  updateTask(task: Partial<Task>): Observable<Task> {
+    return this.http.put<Task>('task', this.parseTask(task))
+    .pipe(
+      tap(task => {
+        this.tasksSource.next(this.tasksSource.value.set(task.id || 0, task))
+      })
+    )
+  }
+
   createTask(task: Task): Observable<Task> {
     if (task.hasOwnProperty('project')) {
       task.project_id = task.project?.id
       delete task.project
     }
-    const parsedTask = {
-      ...task,
-      'start_datetime': task.start_datetime.toISO({ includeOffset: false }),
-      'end_datetime': task.end_datetime.toISO({ includeOffset: false })
-    }
-    return this.http.post<Task>('task', parsedTask)
+    return this.http.post<Task>('task', this.parseTask(task))
     .pipe(
       tap(task => {
         this.tasksSource.next(this.tasksSource.value.set(task.id || 0, task))
