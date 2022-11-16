@@ -13,6 +13,7 @@
       (delete)="onDeleteTask($event)"
       (restart)="onRestart($event)"
       (togglePanel)="onTogglePanelOpen()"
+      (selectProject)="onSelectProject($event)"
     ></app-task-card>
   </mat-expansion-panel-header>
   <div *ngFor="let time_entry of task.time_entries">

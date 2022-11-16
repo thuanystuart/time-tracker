@@ -5,14 +5,14 @@
     {{isTimerRunning ? '(No description)' : 'What are you working on?'}}
   </mat-placeholder>
 </mat-form-field>
-<button mat-stroked-button *ngIf="projectSelectorMenu && projectSelectorMenu.projectMenu" [matMenuTriggerFor]="projectSelectorMenu.projectMenu" class="project-selector">
-  <mat-icon class="project-icon">folder</mat-icon>
-  {{task.project ? task.project.name : "Select a project"}}
-</button>
+<app-project-selector
+  class="project-selector"
+  (selectProject)="onSelectProject($event)"
+  [projectName]="task.project?.name"
+></app-project-selector>
 <button mat-mini-fab [color]="isTimerRunning ? 'warn' : 'accent'" (click)="onStartStopTimer()">
   <mat-icon class="white-icon">{{isTimerRunning ? 'stop' : 'play_arrow'}}</mat-icon>
 </button>
 <button mat-mini-fab color="primary" (click)="this.timerService.resetTimer()" [disabled]="!isTimerRunning">
   <mat-icon class="white-icon">delete</mat-icon>
 </button>
-<app-project-selector-menu></app-project-selector-menu>

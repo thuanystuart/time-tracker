@@ -5,6 +5,7 @@ import { TimeEntryService } from '@services/time-entry.service';
 import { Task } from '@entities/task.model';
 import { TimeEntry } from '@entities/timeEntry.model';
 import { DateTime } from 'luxon';
+import { Project } from '@entities/project.model';
 
 @Component({
   selector: 'app-homepage',
@@ -29,6 +30,10 @@ export class HomepageComponent {
 
   onRestart(task: Task) {
     this.timerService.startTimer(task)
+  }
+
+  onSelectProject(taskProject: [Task | undefined, Project]) {
+    this.taskService.updateTask({'id': taskProject[0]?.id, 'project_id': taskProject[1].id}).subscribe()
   }
 
   trackByGroupedTasks(_index: number, groupedTasks: [DateTime, Task[]]) {

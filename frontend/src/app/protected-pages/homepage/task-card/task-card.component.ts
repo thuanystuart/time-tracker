@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Project } from '@entities/project.model';
 import { buildEmptyTask, Task } from '@entities/task.model';
 import { TimeEntry } from '@entities/timeEntry.model';
 import { Duration } from 'luxon';
@@ -14,6 +15,7 @@ export class TaskCardComponent implements OnInit {
   @Output() delete = new EventEmitter<Task>()
   @Output() restart = new EventEmitter<Task>()
   @Output() togglePanel = new EventEmitter<void>()
+  @Output() selectProject = new EventEmitter<Project>()
 
   duration = Duration.fromMillis(0)
 
@@ -33,10 +35,14 @@ export class TaskCardComponent implements OnInit {
   }
 
   onStart() {
-    this.restart.emit(this.task);
+    this.restart.emit(this.task)
+  }
+
+  onSelectProject(project: Project) {
+    this.selectProject.emit(project)
   }
 
   onTogglePanel() {
-    this.togglePanel.emit();
+    this.togglePanel.emit()
   }
 }

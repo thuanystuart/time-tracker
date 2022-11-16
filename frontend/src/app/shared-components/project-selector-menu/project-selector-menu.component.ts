@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenu } from '@angular/material/menu';
 import { buildEmptyProject, Project } from '@entities/project.model';
@@ -17,8 +17,10 @@ export class ProjectSelectorMenuComponent {
 
   @ViewChild(MatMenu, {static: true}) projectMenu : MatMenu | undefined;
 
+  @Output() selectProject = new EventEmitter<Project>()
+
   onSelectProject(project: Project) {
-    project.id && this.timerService.setProject(project)
+    this.selectProject.emit(project)
   }
 
   onAddProject() {

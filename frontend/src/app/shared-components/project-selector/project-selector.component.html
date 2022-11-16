@@ -1,0 +1,11 @@
+<button
+  mat-stroked-button
+  *ngIf="projectSelectorMenu && projectSelectorMenu.projectMenu"
+  [matMenuTriggerFor]="projectSelectorMenu.projectMenu"
+  class="project-selector"
+  [class.small]="small"
+  >
+  <mat-icon class="project-icon">folder</mat-icon>
+  {{projectName ? projectName : "Select a project"}}
+</button>
+<app-project-selector-menu (selectProject)="onSelectProject($event)"></app-project-selector-menu>
