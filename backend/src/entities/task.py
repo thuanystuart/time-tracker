@@ -21,7 +21,13 @@ class Task(db.Model):
   time_entries = db.relationship(TimeEntry, back_populates='task', lazy=True, order_by=TimeEntry.end_datetime, cascade="all, delete, delete-orphan")
 
   def __init__(self, **data):
-    self.time_entries = [TimeEntry(**data)]
+    self.time_entries = [
+      TimeEntry(
+        description = data['description'],
+        start_datetime = data['start_datetime'],
+        end_datetime = data['end_datetime']
+      )
+    ]
     super(Task, self).__init__(**data, user_id=current_user.id)
 
   def __getitem__(self, field):
