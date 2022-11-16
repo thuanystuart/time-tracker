@@ -7,7 +7,7 @@
 >
   <div class="num-children-icon">{{countChildren()}}</div>
 </button>
-<span class="task-description">{{task.description}}</span>
+<span class="task-description">{{task.description !== '' ? task.description : '(No description)'}}</span>
 <span class="task-time">{{task.start_datetime.toFormat('h:mm a')}} - {{task.end_datetime.toFormat('h:mm a')}}</span>
 <span class="task-duration">{{duration.toFormat("hh:mm:ss")}}</span>
 <button mat-icon-button color="accent" (click)="onStart()">
